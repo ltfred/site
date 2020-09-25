@@ -1,0 +1,23 @@
+{% extends "tool/base_tool.html" %}
+{% load static %}
+
+{% block head_title %}历史上的今天，历史上今天发生的事{% endblock %}
+{% block metas %}
+    <meta name="description" content="历史上的今天，在线工具，历史，今天发生的事">
+    <meta name="keywords" content="历史上的今天,历史,在线工具，今天发生的事">
+{% endblock %}
+
+{% block tool_name %}历史上的今天{% endblock %}
+{% block left_content %}
+<div class="card-body p-0">
+    <h3 class="card-title pl-2 title-info">历史上的今天：</h3>
+    {% if not history %}
+        <p>似乎没有数据呢</p>
+    {% endif %}
+    <ul>
+        {% for each_data in history %}
+            <li>{{ each_data.date }}：{{ each_data.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
