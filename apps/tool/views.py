@@ -8,15 +8,17 @@ from .apis.bd_push import push_urls, get_urls
 from .apis.history import History
 from .apis.useragent import get_user_agent
 from .apis.docker_search import DockerSearch
+from .templatetags.tool_tags import get_toollist_by_key
 from .utils import IMAGE_LIST
-
 
 import re
 import markdown
 
 
 def Toolview(request):
-    return render(request, 'tool/tool.html')
+    category = request.GET.get("category", None)
+    tools = get_toollist_by_key(category)
+    return render(request, 'tool/tool.html', context={"tool_list": tools})
 
 
 # 百度主动推送

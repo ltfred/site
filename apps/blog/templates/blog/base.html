@@ -88,30 +88,6 @@ if(msgs>0){var _record=0;var myTitle=document.title;function titleBlink(){_recor
             x.innerHTML=d.getFullYear();var y=document.getElementById("web-day");
             var dd=Math.floor((d.getTime() - old.getTime()) / (24 * 3600 * 1000));
             var d_str="| 网站已续航 "+dd+" 天";y.innerHTML=d_str;}getnewYear()</script>
-            <script>
-              function addLink() {
-                let body_element = document.body;
-                let selection = window.getSelection();
-                let locationHref=document.location.href;
-                let appendLink="</br> </br> 原文出自[ Petrichor博客 ] 转载请保留原文链接: <a href='"+locationHref+"'>"+locationHref+"</a>";
-                if (window.clipboardData) { // Internet Explorer 兼容
-                  let copytext = selection + appendLink;
-                  window.clipboardData.setData ("Text", copytext);
-                  return false;
-                } else {
-                  let copytext = selection + appendLink;
-                  let newdiv = document.createElement('div');
-                  body_element.appendChild(newdiv);
-                  newdiv.innerHTML = copytext;
-                  selection.selectAllChildren(newdiv);
-                  console.log(copytext);
-                  window.setTimeout(function() {
-                    body_element.removeChild(newdiv);
-                  },0);
-                }
-              }
-              document.oncopy = addLink;
-            </script>
     </div>
 </footer>
 </body>
