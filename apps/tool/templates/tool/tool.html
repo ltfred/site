@@ -20,12 +20,12 @@
           {% get_tool_category as tool_categories %}
           {% for tool_category in tool_categories %}
             <li class="nav-item">
-              <a class="nav-link" href="/tool?category={{ tool_category.key }}"><strong>{{ tool_category.category }}</strong></a>
+              <a class="nav-link" href="/tool?category={{ tool_category.key }}">{{ tool_category.category }}</a>
             </li>
           {% endfor %}
       </ul>
     </nav>
-    <div class="row tool-list" style="padding-top: 30px">
+    <div class="row tool-list" style="padding-top: 20px">
         {% for tool_item in tool_list %}
         <div class="col-md-6 col-lg-4 col-xl-3 px-lg-2 mb-3">
             <div class="card">
