@@ -8,7 +8,7 @@ requests.packages.urllib3.disable_warnings()
 
 
 class DockerSearch(object):
-    base_url = 'https://registry.hub.docker.com/v2/repositories/{repo}/tags/'
+    base_url = "https://registry.hub.docker.com/v2/repositories/{repo}/tags/"
     STATUS_404 = 404
     STATUS_500 = 500
 
@@ -22,8 +22,8 @@ class DockerSearch(object):
         self.code = 200
 
     def get_url(self):
-        if '/' not in self.name:
-            repo = 'library/' + self.name
+        if "/" not in self.name:
+            repo = "library/" + self.name
         else:
             repo = self.name
         url = self.base_url.format(repo=repo)
@@ -41,11 +41,11 @@ class DockerSearch(object):
                 self.code = self.STATUS_404
                 return
             data = json.loads(res)
-            results = data.get('results')
+            results = data.get("results")
             if results:
                 self.results.extend(results)
 
-            next_url = data.get('next')
+            next_url = data.get("next")
             self.page_num += 1
             self.next_url = next_url
 
@@ -53,31 +53,22 @@ class DockerSearch(object):
                 self.get_items(next_url)
 
     def main(self):
-        '''
+        """
         总共三种状态，有查询结果返回200，无结果 >（超时返回500，其他都返回404）
         :return:
-        '''
+        """
         self.get_items(self.url)
         if not self.results:
             if self.code == self.STATUS_500:
-                return {
-                    'status': self.code,
-                    'error': '哎呀！！！网络拥堵...查询官方接口超时，请稍后重试'
-                }
+                return {"status": self.code, "error": "哎呀！！！网络拥堵...查询官方接口超时，请稍后重试"}
             else:
                 return {
-                    'status': self.code,
-                    'error': '镜像仓库没有查询到与 {} 相关的镜像信息，请检查镜像名称后重试！'.format(self.name)
+                    "status": self.code,
+                    "error": f"镜像仓库没有查询到与 {self.name} 相关的镜像信息，请检查镜像名称后重试！",
                 }
         return {
-            'status': 200,
-            'results': self.results,
-            'next_url': self.next_url,
-            'total': len(self.results)
+            "status": 200,
+            "results": self.results,
+            "next_url": self.next_url,
+            "total": len(self.results),
         }
-
-
-if __name__ == '__main__':
-    ds = DockerSearch('nginx')
-    r = ds.main()
-    print(r)

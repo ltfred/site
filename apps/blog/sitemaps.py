@@ -10,7 +10,7 @@ class MySitemap(Sitemap):
 
 
 class ArticleSitemap(MySitemap):
-    changefreq = 'weekly'
+    changefreq = "weekly"
     priority = 1.0
 
     def items(self):
@@ -21,22 +21,24 @@ class ArticleSitemap(MySitemap):
 
 
 class CategorySitemap(MySitemap):
-    changefreq = 'weekly'
+    changefreq = "weekly"
     priority = 0.8
 
     def items(self):
-        return Category.objects.annotate(total_num=Count('article')).filter(total_num__gt=0)
+        return Category.objects.annotate(total_num=Count("article")).filter(
+            total_num__gt=0
+        )
 
     def lastmod(self, obj):
         return obj.article_set.first().create_date
 
 
 class TagSitemap(MySitemap):
-    changefreq = 'weekly'
+    changefreq = "weekly"
     priority = 0.8
 
     def items(self):
-        return Tag.objects.annotate(total_num=Count('article')).filter(total_num__gt=0)
+        return Tag.objects.annotate(total_num=Count("article")).filter(total_num__gt=0)
 
     def lastmod(self, obj):
         return obj.article_set.first().create_date

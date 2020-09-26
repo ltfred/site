@@ -7,13 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tool', '0001_initial'),
+        ("tool", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='toollink',
-            name='category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='tool.ToolCategory', verbose_name='网站分类'),
+            model_name="toollink",
+            name="category",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="tool.ToolCategory",
+                verbose_name="网站分类",
+            ),
         ),
     ]

@@ -13,28 +13,40 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='article',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='作者'),
+            model_name="article",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="作者",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.Category', verbose_name='文章分类'),
+            model_name="article",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="blog.Category",
+                verbose_name="文章分类",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='keywords',
-            field=models.ManyToManyField(help_text='文章关键词，用来作为SEO中keywords，最好使用长尾词，3-4个足够', to='blog.Keyword', verbose_name='文章关键词'),
+            model_name="article",
+            name="keywords",
+            field=models.ManyToManyField(
+                help_text="文章关键词，用来作为SEO中keywords，最好使用长尾词，3-4个足够",
+                to="blog.Keyword",
+                verbose_name="文章关键词",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='tags',
-            field=models.ManyToManyField(to='blog.Tag', verbose_name='标签'),
+            model_name="article",
+            name="tags",
+            field=models.ManyToManyField(to="blog.Tag", verbose_name="标签"),
         ),
     ]

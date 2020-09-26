@@ -13,7 +13,9 @@ register = template.Library()
 @register.simple_tag
 def get_toolcates():
     """获取所有工具分类，只显示有工具的分类"""
-    return ToolCategory.objects.annotate(total_num=Count('toollink')).filter(total_num__gt=0)
+    return ToolCategory.objects.annotate(total_num=Count("toollink")).filter(
+        total_num__gt=0
+    )
 
 
 @register.simple_tag
@@ -28,34 +30,34 @@ def get_toollist_by_key(key=None):
     tools = []
     if not key or key not in IZONE_TOOLS:
         for _k in IZONE_TOOLS:
-            _tag = IZONE_TOOLS[_k]['tag']
-            _tools = IZONE_TOOLS[_k]['tools']
+            _tag = IZONE_TOOLS[_k]["tag"]
+            _tools = IZONE_TOOLS[_k]["tools"]
             for each in _tools:
                 item = {}
-                item['tag'] = _tag
-                item['name'] = each['name']
-                item['url'] = reverse(each['url'])
-                item['img'] = static(each['img'])
-                item['desc'] = each['desc']
+                item["tag"] = _tag
+                item["name"] = each["name"]
+                item["url"] = reverse(each["url"])
+                item["img"] = static(each["img"])
+                item["desc"] = each["desc"]
                 tools.append(item)
     else:
-        _tag = IZONE_TOOLS[key]['tag']
-        _tools = IZONE_TOOLS[key]['tools']
+        _tag = IZONE_TOOLS[key]["tag"]
+        _tools = IZONE_TOOLS[key]["tools"]
         for each in _tools:
             item = {}
-            item['tag'] = _tag
-            item['name'] = each['name']
-            item['url'] = reverse(each['url'])
-            item['img'] = static(each['img'])
-            item['desc'] = each['desc']
+            item["tag"] = _tag
+            item["name"] = each["name"]
+            item["url"] = reverse(each["url"])
+            item["img"] = static(each["img"])
+            item["desc"] = each["desc"]
             tools.append(item)
     return tools
 
 
-@register.inclusion_tag('tool/tags/tool_item.html')
+@register.inclusion_tag("tool/tags/tool_item.html")
 def load_tool_item(item):
     """返回单个工具显示栏"""
-    return {'tool_item': item}
+    return {"tool_item": item}
 
 
 @register.simple_tag()
@@ -63,8 +65,5 @@ def get_tool_category():
     """返回在线工具分类"""
     tool_categories = []
     for _k in IZONE_TOOLS:
-        tool_categories.append({
-            "key": _k,
-            "category": IZONE_TOOLS[_k]["tag"]
-        })
+        tool_categories.append({"key": _k, "category": IZONE_TOOLS[_k]["tag"]})
     return tool_categories

@@ -3,6 +3,7 @@ import datetime
 import requests
 
 import os, django
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "izone.settings")
 django.setup()
 
@@ -27,8 +28,14 @@ class History(object):
             data = []
         history_data = []
         for each_data in data:
-            history_data.append({
-                "title": each_data["title"],
-                "date": each_data["year"] + "-" + each_data["month"] + "-" + each_data["day"],
-            })
+            history_data.append(
+                {
+                    "title": each_data["title"],
+                    "date": each_data["year"]
+                    + "-"
+                    + each_data["month"]
+                    + "-"
+                    + each_data["day"],
+                }
+            )
         return history_data[::-1]

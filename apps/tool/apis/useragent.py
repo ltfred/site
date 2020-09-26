@@ -10,5 +10,5 @@ def get_user_agent(os=None, navigator=None, device_type=None):
     return u
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     get_user_agent()

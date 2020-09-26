@@ -6,28 +6,79 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0003_auto_20200915_1936'),
+        ("blog", "0003_auto_20200915_1936"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SiteConfig',
+            name="SiteConfig",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('logo_name', models.CharField(blank=True, max_length=20, null=True, verbose_name='网站logo名字')),
-                ('site_description', models.CharField(blank=True, max_length=100, null=True, verbose_name='网站描述')),
-                ('site_keywords', models.CharField(blank=True, max_length=100, null=True, verbose_name='网站关键字')),
-                ('tool_flag', models.BooleanField(default=True, verbose_name='是否开启在线工具')),
-                ('api_flag', models.BooleanField(default=False, verbose_name='是否开启api')),
-                ('beian', models.CharField(blank=True, max_length=30, null=True, verbose_name='备案信息')),
-                ('github', models.URLField(blank=True, null=True, verbose_name='github')),
-                ('hao_console', models.CharField(default='{}', help_text='{"flag": true or false, "name": "名字"，"url": "https://"}', max_length=100, verbose_name='导航')),
-                ('deactivated_at', models.DateTimeField(blank=True, null=True, verbose_name='失效时间')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "logo_name",
+                    models.CharField(
+                        blank=True, max_length=20, null=True, verbose_name="网站logo名字"
+                    ),
+                ),
+                (
+                    "site_description",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, verbose_name="网站描述"
+                    ),
+                ),
+                (
+                    "site_keywords",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, verbose_name="网站关键字"
+                    ),
+                ),
+                (
+                    "tool_flag",
+                    models.BooleanField(default=True, verbose_name="是否开启在线工具"),
+                ),
+                (
+                    "api_flag",
+                    models.BooleanField(default=False, verbose_name="是否开启api"),
+                ),
+                (
+                    "beian",
+                    models.CharField(
+                        blank=True, max_length=30, null=True, verbose_name="备案信息"
+                    ),
+                ),
+                (
+                    "github",
+                    models.URLField(blank=True, null=True, verbose_name="github"),
+                ),
+                (
+                    "hao_console",
+                    models.CharField(
+                        default="{}",
+                        help_text='{"flag": true or false, "name": "名字"，"url": "https://"}',
+                        max_length=100,
+                        verbose_name="导航",
+                    ),
+                ),
+                (
+                    "deactivated_at",
+                    models.DateTimeField(blank=True, null=True, verbose_name="失效时间"),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="创建时间"),
+                ),
             ],
             options={
-                'verbose_name': '网站配置',
-                'verbose_name_plural': '网站配置',
+                "verbose_name": "网站配置",
+                "verbose_name_plural": "网站配置",
             },
         ),
     ]
