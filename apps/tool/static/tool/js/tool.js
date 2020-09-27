@@ -104,6 +104,34 @@ function regex_api(CSRF, URL) {
 	})
 }
 
+// picture to base64
+function picture_to_base64_api(CSRF, URL){
+	if ($("#picture").val() === '') {
+		alert('请先选择图片！');
+		return false
+	};
+	let formData = new FormData();
+	formData.append('picture', document.getElementById('picture').files[0]);
+	formData.append("csrfmiddlewaretoken", CSRF)
+	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
+	$.ajax({
+	url:URL,
+	type:"post",
+	data: formData,
+	contentType: false,
+	processData: false,
+	success: function(ret) {
+		var newhtml = '<div class="text-left re-result">' + ret.result + "</div>"
+		$('.push-result').html(newhtml);
+	},
+	error: function (ret) {
+		var newhtml = '<div class="text-left re-result">' + "似乎出了点问题呢" + "</div>"
+		$('.push-result').html(newhtml);
+	}
+})
+
+}
+
 //user-agent api
 function useragent_api(CSRF, URL) {
     var d_tags = $("#device_type input:checkbox:checked");

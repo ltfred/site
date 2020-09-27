@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# Author: https://github.com/Hopetree
+# Author: https://github.com/ltfred
 # Date: 2019/8/21
 import json
 import requests

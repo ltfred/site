@@ -1,3 +1,4 @@
+import base64
 import datetime
 
 from django.shortcuts import render
@@ -139,3 +140,13 @@ def history_today_view(request):
         cache.set(cache_key, data, 60 * 60 * 24)
     context = {"history": data}
     return render(request, "tool/history_today.html", context=context)
+
+
+def picture_to_base64_view(request):
+    """图片转base64"""
+    if request.is_ajax() and request.method == "POST":
+        picture = request.FILES.get("picture")
+        type_name = picture.name.split(".")
+        image_base64 = base64.b64encode(picture.read()).decode()
+        return JsonResponse({"result": f"data:image/{type_name[-1]};base64,{image_base64}"})
+    return render(request, "tool/picture_to_base64.html")

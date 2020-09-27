@@ -1,0 +1,39 @@
+{% extends "tool/base_tool.html" %}
+{% load static %}
+
+{% block head_title %}图片转base64编码_在线工具{% endblock %}
+{% block metas %}
+<meta name="description"
+      content="图片转base64编码，base64，在线转base64编码，在线工具">
+<meta name="keywords" content="图片转base64编码, base64, 在线工具">
+{% endblock %}
+
+{% block tool_name %}图片转base64编码{% endblock %}
+{% block left_content %}
+<div class="card-body p-0">
+    <h3 class="card-title pl-2 title-info">工具说明：</h3>
+    <ul>
+        <li>将图片转换为Base64编码，可以让你很方便地在没有上传文件的条件下将图片插入其它的网页、编辑器中。 这对于一些小的图片是极为方便的，因为你不需要再去寻找一个保存图片的地方</li>
+        <li>假定生成的代码为“data:image/jpeg;base64, .....”，那么你只需要全部复制，然后在插入图片的时候，地址填写这段代码即可</li>
+    </ul>
+</div>
+<div class="mb-3">
+    <div class="form-group">
+        <label>选择图片：</label><br>
+        <input type="file" id="picture" accept="image/*" />
+  </div>
+    <button type="submit" class="btn btn-info btn-sm rounded-0" id="start-con">开始转换</button>
+</div>
+<div class="card mb-3 rounded-0">
+    <div class="card-header text-center text-info font-weight-bold py-2">base64编码</div>
+    <div class="card-body push-result text-center p-3">结果显示区</div>
+</div>
+{% endblock %}
+
+{% block end_f %}
+<script>
+$("#start-con").click(function(){
+    picture_to_base64_api("{{ csrf_token }}","{% url 'tool:picture_to_base64' %}")
+})
+</script>
+{% endblock %}
