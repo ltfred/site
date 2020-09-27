@@ -113,6 +113,7 @@ function picture_to_base64_api(CSRF, URL){
 	let formData = new FormData();
 	formData.append('picture', document.getElementById('picture').files[0]);
 	formData.append("csrfmiddlewaretoken", CSRF)
+	formData.append("is_header", $("input[name='optradio']:checked").val())
 	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
 	$.ajax({
 	url:URL,

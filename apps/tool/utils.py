@@ -85,7 +85,7 @@ IZONE_TOOLS = {
             {
                 "name": "图片转base64",
                 "url": "tool:picture_to_base64",
-                "img": "blog/img/regex.png",
+                "img": "blog/img/base64.png",
                 "desc": "图片转base64",
             },
         ],

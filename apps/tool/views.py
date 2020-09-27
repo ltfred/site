@@ -1,6 +1,7 @@
 import base64
 import datetime
 
+import hutils
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.utils.html import mark_safe
@@ -145,8 +146,12 @@ def history_today_view(request):
 def picture_to_base64_view(request):
     """图片转base64"""
     if request.is_ajax() and request.method == "POST":
-        picture = request.FILES.get("picture")
-        type_name = picture.name.split(".")
+        picture = request.FILES.get("picture", None)
+        hutils.check_error(not picture, "请传入图片")
+        is_header = request.POST.get("is_header", "true")
         image_base64 = base64.b64encode(picture.read()).decode()
-        return JsonResponse({"result": f"data:image/{type_name[-1]};base64,{image_base64}"})
+        if is_header == "true":
+            type_name = picture.name.split(".")
+            return JsonResponse({"result": f"data:image/{type_name[-1]};base64,{image_base64}"})
+        return JsonResponse({"result": image_base64})
     return render(request, "tool/picture_to_base64.html")
