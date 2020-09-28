@@ -202,7 +202,7 @@ REST_FRAMEWORK = {
 MYSQL_HOST = os.getenv("IZONE_MYSQL_HOST", "127.0.0.1")
 MYSQL_NAME = os.getenv("IZONE_MYSQL_NAME", "mysite")
 MYSQL_USER = os.getenv("IZONE_MYSQL_USER", "root")
-MYSQL_PASSWORD = os.getenv("IZONE_MYSQL_PASSWORD", "mysql123")
+MYSQL_PASSWORD = os.getenv("IZONE_MYSQL_PASSWORD", "")
 MYSQL_PORT = os.getenv("IZONE_MYSQL_PORT", 3306)
 
 DATABASES = {
@@ -243,7 +243,7 @@ if admin_email_user:
 EMAIL_HOST = os.getenv("IZONE_EMAIL_HOST", "smtp.163.com")
 EMAIL_HOST_USER = os.getenv("IZONE_EMAIL_HOST_USER", "ltfred@163.com")
 EMAIL_HOST_PASSWORD = os.getenv(
-    "IZONE_EMAIL_HOST_PASSWORD", "liutao813298239"
+    "IZONE_EMAIL_HOST_PASSWORD", ""
 )  # 这个不是邮箱密码，而是授权码
 EMAIL_PORT = os.getenv("IZONE_EMAIL_PORT", 465)  # 由于阿里云的25端口打不开，所以必须使用SSL然后改用465端口
 EMAIL_TIMEOUT = 5
@@ -279,4 +279,4 @@ HAO_CONSOLE = {
 }
 
 # 极速数据app_key
-JI_SU_APP_KEY = "cdce972822590784"
+JI_SU_APP_KEY = os.getenv("JI_SU_APP_KEY", "")
