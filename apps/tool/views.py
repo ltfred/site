@@ -20,7 +20,7 @@ import markdown
 def Toolview(request):
     category = request.GET.get("category", None)
     tools = get_toollist_by_key(category)
-    return render(request, "tool/tool.html", context={"tool_list": tools})
+    return render(request, "tool/tool.html", context={"tool_list": tools, "category": category})
 
 
 # 百度主动推送

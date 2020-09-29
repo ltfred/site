@@ -35,7 +35,7 @@ TOOL_FLAG = os.getenv("IZONE_TOOL_FLAG", "True").upper() == "TRUE"
 API_FLAG = os.getenv("IZONE_API_FLAG", "False").upper() == "TRUE"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("IZONE_DEBUG", "False").upper() == "TRUE"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -202,7 +202,7 @@ REST_FRAMEWORK = {
 MYSQL_HOST = os.getenv("IZONE_MYSQL_HOST", "127.0.0.1")
 MYSQL_NAME = os.getenv("IZONE_MYSQL_NAME", "mysite")
 MYSQL_USER = os.getenv("IZONE_MYSQL_USER", "root")
-MYSQL_PASSWORD = os.getenv("IZONE_MYSQL_PASSWORD", "")
+MYSQL_PASSWORD = os.getenv("IZONE_MYSQL_PASSWORD", "mysql123")
 MYSQL_PORT = os.getenv("IZONE_MYSQL_PORT", 3306)
 
 DATABASES = {

@@ -19,7 +19,7 @@
       <ul class="navbar-nav">
           {% get_tool_category as tool_categories %}
           {% for tool_category in tool_categories %}
-            <li class="nav-item">
+            <li class="nav-item " id="{{ tool_category.key }}">
               <a class="nav-link" href="/tool?category={{ tool_category.key }}">{{ tool_category.category }}</a>
             </li>
           {% endfor %}
@@ -44,5 +44,9 @@
         </div>
         {% endfor %}
     </div>
+    <script>
+        var obj = document.getElementById("{{ category }}");
+        obj.className += " active";
+    </script>
 </div>
 {% endblock %}
