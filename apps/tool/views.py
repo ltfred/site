@@ -170,6 +170,6 @@ def base64_view(request):
             if flag == "decode":
                 data = base64.b64decode(texts).decode()
         except:
-            return JsonResponse({"result": "输入的明文或密文有误"})
-        return JsonResponse({"result": data})
+            return JsonResponse({"result": "输入的明文或密文有误", "status": 400})
+        return JsonResponse({"result": data, "status": 200})
     return render(request, "tool/base64.html")

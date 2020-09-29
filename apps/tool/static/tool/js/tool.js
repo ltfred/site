@@ -122,7 +122,7 @@ function picture_to_base64_api(CSRF, URL){
 	contentType: false,
 	processData: false,
 	success: function(ret) {
-		var newhtml = '<div class="text-left re-result">' + ret.result + "</div>"
+		var newhtml = '<textarea class="form-control rounded-0" id="form-result" rows="8">' + ret.result + "</textarea>"
 		$('.push-result').html(newhtml);
 	},
 	error: function (ret) {
@@ -234,6 +234,7 @@ function base64_api(CSRF, URL, FLAG) {
 		csrfmiddlewaretoken: CSRF
 	}
 	});
+	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
 	$.ajax({
 		type: 'post',
 		url: URL,
@@ -243,7 +244,14 @@ function base64_api(CSRF, URL, FLAG) {
 		},
 		dataType: 'json',
 		success: function(ret) {
-			$("#form-result").val(ret.result)
+			console.log(ret.result)
+			if (ret.status === 400) {
+				var newhtml = '<div class="text-left re-result">' + ret.result + "</div>"
+				$('.push-result').html(newhtml);
+			} else if (ret.status === 200) {
+				var newhtml = '<textarea class="form-control rounded-0" id="form-result" rows="8">' + ret.result + "</textarea>"
+				$('.push-result').html(newhtml);
+			}
 		},
 	})
 
