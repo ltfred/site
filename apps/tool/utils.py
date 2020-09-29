@@ -88,6 +88,12 @@ IZONE_TOOLS = {
                 "img": "blog/img/base64.png",
                 "desc": "图片转base64",
             },
+            {
+                "name": "base64加解密",
+                "url": "tool:base64",
+                "img": "blog/img/base64-code.jpg",
+                "desc": "base64在线加密，解密",
+            },
         ],
     },
     "query": {

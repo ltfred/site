@@ -220,3 +220,31 @@ function docker_search(CSRF, URL) {
 		}
 	})
 }
+
+
+// base64加解密
+function base64_api(CSRF, URL, FLAG) {
+	var texts = $.trim($('#form-text').val());
+	if (texts.length === 0) {
+	alert('请输入要加密或解密的内容！');
+	return false
+	};
+	$.ajaxSetup({
+	data: {
+		csrfmiddlewaretoken: CSRF
+	}
+	});
+	$.ajax({
+		type: 'post',
+		url: URL,
+		data: {
+			'texts': texts,
+			"flag": FLAG,
+		},
+		dataType: 'json',
+		success: function(ret) {
+			$("#form-result").val(ret.result)
+		},
+	})
+
+}

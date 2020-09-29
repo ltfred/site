@@ -155,3 +155,21 @@ def picture_to_base64_view(request):
             return JsonResponse({"result": f"data:image/{type_name[-1]};base64,{image_base64}"})
         return JsonResponse({"result": image_base64})
     return render(request, "tool/picture_to_base64.html")
+
+
+def base64_view(request):
+    """base64加解密"""
+    if request.is_ajax() and request.method == "POST":
+        texts = request.POST.get("texts", None)
+        flag = request.POST.get("flag", None)
+        hutils.check_error((not texts or not flag), "请输入内容或操作")
+        data = ""
+        try:
+            if flag == "encode":
+                data = base64.b64encode(texts.encode()).decode()
+            if flag == "decode":
+                data = base64.b64decode(texts).decode()
+        except:
+            return JsonResponse({"result": "输入的明文或密文有误"})
+        return JsonResponse({"result": data})
+    return render(request, "tool/base64.html")

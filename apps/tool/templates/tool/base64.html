@@ -1,0 +1,42 @@
+{% extends "tool/base_tool.html" %}
+{% load static %}
+
+{% block head_title %}base64在线加密解密_在线工具{% endblock %}
+{% block metas %}
+<meta name="description" content="base64在线加密解密，加密解密，base64">
+<meta name="keywords" content="base64在线加密解密，加密解密，base64,在线工具">
+{% endblock %}
+
+{% block tool_name %}base64在线加密解密{% endblock %}
+{% block left_content %}
+<div class="card-body p-0">
+    <h3 class="card-title pl-2 title-info">工具说明：</h3>
+    <ul>
+        <li>输入明文或密文，返回对应的base64密文或明文</li>
+    </ul>
+</div>
+<div class="mb-3">
+    <div class="form-group">
+        <label>明文或密文：</label>
+        <textarea class="form-control rounded-0" id="form-text" rows="8" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm rounded-0" id="start-encode">base64加密</button>
+    <button type="submit" class="btn btn-info btn-sm rounded-1" id="start-decode">base64解密</button>
+</div>
+<div class="card mb-3 rounded-0">
+    <div class="card-header text-center text-info font-weight-bold py-2">加解密结果</div>
+    <textarea class="form-control rounded-0" id="form-result" rows="8"></textarea>
+</div>
+{% endblock %}
+
+{% block end_f %}
+<script>
+$('#start-encode').click(function() {
+	base64_api("{{ csrf_token }}", "{% url 'tool:base64' %}", "encode");
+})
+$('#start-decode').click(function() {
+	base64_api("{{ csrf_token }}", "{% url 'tool:base64' %}", "decode");
+})
+
+</script>
+{% endblock %}
