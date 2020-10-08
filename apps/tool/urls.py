@@ -9,7 +9,7 @@ from .views import (
     html_characters,
     docker_search_view,
     editor_view,
-    history_today_view, picture_to_base64_view, base64_view,
+    history_today_view, picture_to_base64_view, base64_view, holiday_view,
 )
 
 urlpatterns = [
@@ -28,4 +28,5 @@ urlpatterns = [
     path("history-today/", history_today_view, name="history_today"),  # 历史上的今天
     path("picture-to-base64/", picture_to_base64_view, name="picture_to_base64"),  # 图片转base64
     path("base64/", base64_view, name="base64"),  # base64加解密
+    path("holiday/", holiday_view, name="holiday"),  # 节假日安排
 ]

@@ -104,6 +104,12 @@ IZONE_TOOLS = {
                 "url": "tool:history_today",
                 "img": "blog/img/todayhistory.png",
                 "desc": "历史上的今天发生了那些事",
+            },
+            {
+                "name": "放假安排",
+                "url": "tool:holiday",
+                "img": "blog/img/holiday.jpeg",
+                "desc": "放假安排",
             }
         ],
     },

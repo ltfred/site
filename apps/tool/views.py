@@ -173,3 +173,8 @@ def base64_view(request):
             return JsonResponse({"result": "输入的明文或密文有误", "status": 400})
         return JsonResponse({"result": data, "status": 200})
     return render(request, "tool/base64.html")
+
+
+def holiday_view(request):
+    """节假日"""
+    return render(request, "tool/holiday.html")

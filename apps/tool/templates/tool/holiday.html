@@ -1,55 +1,69 @@
 {% extends "tool/base_tool.html" %}
 {% load static %}
 
-{% block head_title %}Sitemap主动推送，百度主动推送工具升级版，加快网站内容抓取_站长工具{% endblock %}
+{% block head_title %}放假安排{% endblock %}
 {% block metas %}
-<meta name="description" content="Sitemap主动推送是百度主动推送工具的升级版，可以在线实时自动提交链接，首先使用正则表达式批量抓取网站sitemap页面所有链接，然后调用百度站长平台的主动推送接口，批量推送链接，加快抓取速度和百度收录效率。">
-<meta name="keywords" content="百度主动推送,站长工具,在线工具,sitemap,自动提交,百度收录,实时提交">
+<meta name="description" content="节假日及调休安排">
+<meta name="keywords" content="节假日及调休安排,假期,在线工具">
 {% endblock %}
 
-{% block tool_name %}Sitemap主动推送{% endblock %}
+{% block tool_name %}放假安排{% endblock %}
 {% block left_content %}
 <div class="card-body p-0">
-    <h3 class="card-title pl-2 title-info">工具说明：</h3>
-    <ul>
-        <li>这个Sitemap主动推送工具是百度主动推送工具的升级版</li>
-        <li>本工具的作用是抓取网站sitemap页面中所有的链接，然后使用百度站长官方提供的推送接口主动推送链接给百度收录，百度主动推送的作用请查看
-            <a class="text-info" href="https://ziyuan.baidu.com/linksubmit/index" target="_blank">官方说明</a>
-        </li>
-        <li>首先将百度站长提供的“接口调用地址”复制到下面表单中，然后将自己网站的sitemap页面的地址复制到对应表单中，点击提交按钮即可看到返回的信息</li>
-        <li>本工具适合新站或百度收录量比较少的老站使用，对于网站大部分链接已经被百度收录的老站建议使用
-            <a class="text-info" href="{% url 'tool:baidu_push' %}">百度主动推送工具</a> 实时提交新建链接
-        </li>
-    </ul>
+    <h3 class="card-title pl-2 title-info">2020年放假安排：</h3>
+        <table class="table bg-white table-bordered text-center table-sm">
+        <thead>
+        <tr bgcolor="#20c997">
+            <th><strong>节日</strong></th>
+            <th><strong>放假时间</strong></th>
+            <th><strong>调休日期</strong></th>
+            <th><strong>放假天数</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>元旦节</td>
+            <td>01月01日</td>
+            <td>无调休</td>
+            <td>1天</td>
+        </tr>
+        <tr>
+            <td>春节</td>
+            <td>01月24日~02月02日</td>
+            <td>01月19日（周日）</td>
+            <td>10天</td>
+        </tr>
+        <tr>
+            <td>清明节</td>
+            <td>04月04日~04月06日</td>
+            <td>无调休</td>
+            <td>3天</td>
+        </tr>
+        <tr>
+            <td>劳动节</td>
+            <td>05月01日~05月05日</td>
+            <td>04月26日（周日）、05月09日（周六）</td>
+            <td>5天</td>
+        </tr>
+        <tr>
+            <td>端午节</td>
+            <td>06月25日~06月27日</td>
+            <td>06月28日（周日）</td>
+            <td>3天</td>
+        </tr>
+        <tr>
+            <td>中秋节</td>
+            <td>10月01日</td>
+            <td>无调休</td>
+            <td>1天</td>
+        </tr>
+        <tr>
+            <td>国庆节</td>
+            <td>10月01日~10月08日</td>
+            <td>09月27日（周日）、10月10日（周六）</td>
+            <td>8天</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<div class="mb-3">
-    <div class="form-group">
-        <label>接口调用地址：</label>
-        <input type="url" class="form-control rounded-0" id="form-url"
-               placeholder="例：http://data.zz.baidu.com/urls?site=www.example.com&token=NpU0****tTQAlBV"
-               required>
-        <small class="form-text text-muted">注：请填写百度站长平台提供给您的接口调用地址</small>
-    </div>
-    <div class="form-group">
-        <label>Sitemap地址：</label>
-        <input type="url" class="form-control rounded-0" id="form-sitemap"
-               placeholder="例：http://www.example.com/sitemap.xml"
-               required>
-        <small class="form-text text-muted">注：规范的sitemap网页的链接应该包含在&lt;loc&gt;标签中，否则无法提取到链接</small>
-    </div>
-    <button type="submit" class="btn btn-info btn-sm rounded-0" id="start-push">开始推送</button>
-</div>
-<div class="card mb-3 rounded-0">
-    <div class="card-header text-center text-info font-weight-bold py-2">推送结果</div>
-    <div class="card-body table-responsive push-result text-center py-3">结果显示区</div>
-</div>
-{% endblock %}
-
-{% block end_f %}
-<script>
-$('#start-push').click(function() {
-	site_push_spider("{{ csrf_token }}", "{% url 'tool:baidu_push_site' %}");
-})
-
-</script>
 {% endblock %}
