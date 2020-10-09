@@ -228,7 +228,7 @@ function base64_api(CSRF, URL, FLAG) {
 	if (texts.length === 0) {
 	alert('请输入要加密或解密的内容！');
 	return false
-	};
+	}
 	$.ajaxSetup({
 	data: {
 		csrfmiddlewaretoken: CSRF
@@ -244,7 +244,6 @@ function base64_api(CSRF, URL, FLAG) {
 		},
 		dataType: 'json',
 		success: function(ret) {
-			console.log(ret.result)
 			if (ret.status === 400) {
 				var newhtml = '<div class="text-left re-result">' + ret.result + "</div>"
 				$('.push-result').html(newhtml);
@@ -255,4 +254,42 @@ function base64_api(CSRF, URL, FLAG) {
 		},
 	})
 
+}
+
+
+//phone api
+function phone_api(CSRF, URL) {
+	var phone = $.trim($('#form-phone').val());
+	if (phone.length === 0) {
+		alert('手机号不能为空！');
+		return false
+	}
+	if(!(/^1[3456789]\d{9}$/.test(phone))){
+	alert("手机号码有误，请重填");
+	return false
+	}
+	$.ajaxSetup({
+		data: {
+			csrfmiddlewaretoken: CSRF
+		}
+	});
+	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
+	$.ajax({
+		type: 'post',
+		url: URL,
+		data: {
+			'phone': phone,
+		},
+		dataType: 'json',
+		success: function(ret) {
+			if (ret.status === 200) {
+				var newhtml = '<div class="text-left re-result">' + '省份：' + ret.result["province"] + '<br>' + '城市：' + ret.result["city"] + '<br>' + '运营商：' + ret.result["company"] + '<br>' + '区号：' + ret.result["areacode"] + '<br>'+ "</div>"
+				$('.push-result').html(newhtml);
+			} else {
+				var newhtml = '<div class="text-left re-result">' + ret.msg + "</div>"
+				$('.push-result').html(newhtml);
+			}
+
+		},
+	})
 }

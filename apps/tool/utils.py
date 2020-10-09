@@ -97,7 +97,7 @@ IZONE_TOOLS = {
         ],
     },
     "query": {
-        "tag": "查询工具",
+        "tag": "便民工具",
         "tools": [
             {
                 "name": "历史上的今天",
@@ -109,7 +109,13 @@ IZONE_TOOLS = {
                 "name": "放假安排",
                 "url": "tool:holiday",
                 "img": "blog/img/holiday.jpeg",
-                "desc": "放假安排",
+                "desc": "放假安排，看看是不是要放假了",
+            },
+            {
+                "name": "手机号归属地",
+                "url": "tool:phone",
+                "img": "blog/img/shouji.png",
+                "desc": "手机号归属地查询，支持移动，电信，联通",
             }
         ],
     },

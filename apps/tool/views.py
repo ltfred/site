@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.utils.html import mark_safe
 from django.core.cache import cache
 from .apis.bd_push import push_urls, get_urls
-from .apis.history import History
+from .apis.jisu import JiSu
 from .apis.useragent import get_user_agent
 from .apis.docker_search import DockerSearch
 from .templatetags.tool_tags import get_toollist_by_key
@@ -137,7 +137,7 @@ def history_today_view(request):
     if cache_value:
         data = cache_value
     else:
-        data = History().get_data()
+        data = JiSu().get_history_data()
         cache.set(cache_key, data, 60 * 60 * 24)
     context = {"history": data}
     return render(request, "tool/history_today.html", context=context)
@@ -178,3 +178,15 @@ def base64_view(request):
 def holiday_view(request):
     """节假日"""
     return render(request, "tool/holiday.html")
+
+
+def phone_view(request):
+    """手机号归属地"""
+    if request.is_ajax() and request.method == "POST":
+        phone = request.POST.get("phone", "")
+        hutils.check_error(not phone, "请输入手机号")
+        if not re.match(r"^1[3456789]\d{9}$", phone):
+            return JsonResponse({"result": "输入的手机号有误"})
+        data = JiSu().get_phone(phone)
+        return JsonResponse({"result": data["result"], "msg": data["msg"], "status": data["status"]})
+    return render(request, "tool/phone.html")

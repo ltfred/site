@@ -10,15 +10,16 @@ django.setup()
 from django.conf import settings
 
 
-class History(object):
+class JiSu(object):
     def __init__(self):
-        self.base_url = "https://api.jisuapi.com/todayhistory/query"
+        self.history_url = "https://api.jisuapi.com/todayhistory/query"
+        self.phone_url = "https://api.jisuapi.com/shouji/query"
         self.app_key = settings.JI_SU_APP_KEY
 
-    def get_data(self):
+    def get_history_data(self):
         date = datetime.datetime.today().date()
         month, day = date.month, date.day
-        url = self.base_url + f"?appkey={self.app_key}&month={month}&day={day}"
+        url = self.history_url + f"?appkey={self.app_key}&month={month}&day={day}"
         try:
             response = requests.get(url)
             if response.status_code != 200:
@@ -39,3 +40,11 @@ class History(object):
                 }
             )
         return history_data[::-1]
+
+    def get_phone(self, phone):
+        url = self.phone_url + f"?appkey={self.app_key}&shouji={phone}"
+        response = requests.get(url)
+        data = response.json()
+        if data["status"] != 0:
+            return {"msg": data["msg"], "result": {}, "status": data["status"]}
+        return {"msg": data["msg"], "result": data["result"], "status": 200}
