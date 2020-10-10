@@ -279,4 +279,4 @@ HAO_CONSOLE = {
 }
 
 # 极速数据app_key
-JI_SU_APP_KEY = os.getenv("JI_SU_APP_KEY", "cdce972822590784")
+JI_SU_APP_KEY = os.getenv("JI_SU_APP_KEY", "")
