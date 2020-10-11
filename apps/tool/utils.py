@@ -121,5 +121,3 @@ IZONE_TOOLS = {
     },
 }
 
-if __name__ == "__main__":
-    print(sorted(IMAGE_LIST))

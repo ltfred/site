@@ -17,6 +17,7 @@ class JiSu(object):
         self.app_key = settings.JI_SU_APP_KEY
 
     def get_history_data(self):
+        """获取历史上的今天数据"""
         date = datetime.datetime.today().date()
         month, day = date.month, date.day
         url = self.history_url + f"?appkey={self.app_key}&month={month}&day={day}"
@@ -42,6 +43,7 @@ class JiSu(object):
         return history_data[::-1]
 
     def get_phone(self, phone):
+        """获取手机号归属地数据"""
         url = self.phone_url + f"?appkey={self.app_key}&shouji={phone}"
         response = requests.get(url)
         data = response.json()
