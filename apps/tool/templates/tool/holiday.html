@@ -10,7 +10,7 @@
 {% block tool_name %}放假安排{% endblock %}
 {% block left_content %}
 <div class="card-body p-0">
-    <h3 class="card-title pl-2 title-info">2020年放假安排：</h3>
+    <h3 class="card-title pl-2 title-info">{{ year }}年放假安排：</h3>
         <table class="table bg-white table-bordered text-center table-sm">
         <thead>
         <tr bgcolor="#20c997">
@@ -21,48 +21,14 @@
         </tr>
         </thead>
         <tbody>
+        {% for each in holiday %}
         <tr>
-            <td>元旦节</td>
-            <td>01月01日</td>
-            <td>无调休</td>
-            <td>1天</td>
+            <td>{{ each.name }}</td>
+            <td>{{ each.duration }}</td>
+            <td>{{ each.rest }}</td>
+            <td>{{ each.days }}</td>
         </tr>
-        <tr>
-            <td>春节</td>
-            <td>01月24日~02月02日</td>
-            <td>01月19日（周日）</td>
-            <td>10天</td>
-        </tr>
-        <tr>
-            <td>清明节</td>
-            <td>04月04日~04月06日</td>
-            <td>无调休</td>
-            <td>3天</td>
-        </tr>
-        <tr>
-            <td>劳动节</td>
-            <td>05月01日~05月05日</td>
-            <td>04月26日（周日）、05月09日（周六）</td>
-            <td>5天</td>
-        </tr>
-        <tr>
-            <td>端午节</td>
-            <td>06月25日~06月27日</td>
-            <td>06月28日（周日）</td>
-            <td>3天</td>
-        </tr>
-        <tr>
-            <td>中秋节</td>
-            <td>10月01日</td>
-            <td>无调休</td>
-            <td>1天</td>
-        </tr>
-        <tr>
-            <td>国庆节</td>
-            <td>10月01日~10月08日</td>
-            <td>09月27日（周日）、10月10日（周六）</td>
-            <td>8天</td>
-        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

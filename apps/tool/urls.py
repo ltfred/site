@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.urls import path
+from django.urls import path, re_path
 from .views import (
     Toolview,
     BD_pushview,
@@ -9,7 +9,11 @@ from .views import (
     html_characters,
     docker_search_view,
     editor_view,
-    history_today_view, picture_to_base64_view, base64_view, holiday_view, phone_view,
+    history_today_view,
+    picture_to_base64_view,
+    base64_view,
+    holiday_view,
+    phone_view,
 )
 
 urlpatterns = [

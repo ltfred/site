@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "blog",  # 博客应用
     "tool",  # 工具
     "comment",  # 评论
+    "apiv2",
     "django_tctip",
 ]
 

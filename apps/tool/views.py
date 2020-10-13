@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.utils.html import mark_safe
 from django.core.cache import cache
 from .apis.bd_push import push_urls, get_urls
+from .apis.holiday import Holiday
 from .apis.jisu import JiSu
 from .apis.useragent import get_user_agent
 from .apis.docker_search import DockerSearch
@@ -177,7 +178,10 @@ def base64_view(request):
 
 def holiday_view(request):
     """节假日"""
-    return render(request, "tool/holiday.html")
+    year = datetime.datetime.now().year
+    date, code = Holiday().get_legal_holiday(str(year))
+    holiday = date["message"]
+    return render(request, "tool/holiday.html", {"year": year, "holiday": holiday})
 
 
 def phone_view(request):

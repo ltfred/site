@@ -50,6 +50,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),  # 网站地图
     path("feed/", AllArticleRssFeed(), name="rss"),  # rss订阅
+    path("api/v2/", include("apiv2.urls"))  # API
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )  # 加入这个才能显示media文件
