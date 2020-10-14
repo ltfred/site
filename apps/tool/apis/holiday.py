@@ -12,7 +12,7 @@ class Holiday(object):
 
     def get_legal_holiday(self, year: str):
         if year not in self.xlsx.sheet_names():
-            return {"year": year, "message": "暂不支持该年的查询"}, -1
+            return {"message": "暂不支持该年的查询或输入的格式不正确"}, -1
         sheet = self.xlsx.sheet_by_name(year)
         holiday_data = []
         for i in range(sheet.nrows):
@@ -29,10 +29,10 @@ class Holiday(object):
         try:
             date = hutils.str_to_date(date_str)
         except:
-            return {"date": date_str, "message": "输入的日期有误"}, -1
+            return {"message": "暂不支持该日期的查询或输入的日期格式有误"}, -1
         data, code = self.get_legal_holiday(str(date.year))
         if code == -1:
-            return {"date": date, "message": "暂不支持该日期的查询"}, -1
+            return {"message": "暂不支持该日期的查询或输入的日期格式有误"}, -1
         # 判断今天是否是法定假日
         for each in data["message"]:
             duration = each["duration"].split("~")

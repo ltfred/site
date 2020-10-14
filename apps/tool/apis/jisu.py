@@ -27,7 +27,7 @@ class JiSu(object):
                 raise
             data = response.json()["result"]
         except:
-            data = []
+            return -1, []
         history_data = []
         for each_data in data:
             history_data.append(
@@ -40,7 +40,7 @@ class JiSu(object):
                     + each_data["day"],
                 }
             )
-        return history_data[::-1]
+        return 0, history_data[::-1]
 
     def get_phone(self, phone):
         """获取手机号归属地数据"""

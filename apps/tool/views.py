@@ -138,7 +138,7 @@ def history_today_view(request):
     if cache_value:
         data = cache_value
     else:
-        data = JiSu().get_history_data()
+        code, data = JiSu().get_history_data()
         cache.set(cache_key, data, 60 * 60 * 24)
     context = {"history": data}
     return render(request, "tool/history_today.html", context=context)
