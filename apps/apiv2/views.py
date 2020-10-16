@@ -8,7 +8,7 @@ from tool.utils.common import split_date_duration
 
 def holiday(request):
     """获取某年的法定节假日"""
-    year = request.query_params.get("year", datetime.datetime.now().year)
+    year = request.GET.get("year", datetime.datetime.now().year)
     try:
         data, code = Holiday().get_legal_holiday(str(year))
     except:
@@ -18,7 +18,7 @@ def holiday(request):
 
 def date_info(request):
     """查询某日期的节假日信息"""
-    date = request.query_params.get("date", datetime.date.today())
+    date = request.GET.get("date", datetime.date.today())
     try:
         data, code = Holiday().get_today(str(date))
     except:
