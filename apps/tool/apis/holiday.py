@@ -2,6 +2,8 @@ import hutils
 import xlrd
 import os
 
+from tool.utils.common import split_date_duration
+
 
 class Holiday(object):
     def __init__(self):
@@ -35,11 +37,7 @@ class Holiday(object):
             return {"message": "暂不支持该日期的查询或输入的日期格式有误"}, -1
         # 判断今天是否是法定假日
         for each in data["message"]:
-            duration = each["duration"].split("~")
-            start, end = duration[0], duration[1]
-            start_date_str = str(date.year) + "-" + start[:2] + "-" + start[3:5]
-            end_date_str = str(date.year) + "-" + end[:2] + "-" + end[3:5]
-            start_date, end_date = hutils.str_to_date(start_date_str), hutils.str_to_date(end_date_str)
+            start_date, end_date = split_date_duration(each["duration"], date)
             if start_date <= date <= end_date:
                 return {"date": date, "message": f"今天是{each['name']}呢，好好休息一下吧！"}, 0
             # 判断是否是调休日
