@@ -8,7 +8,7 @@ from tool.utils.common import split_date_duration
 
 def holiday(request):
     """获取某年的法定节假日"""
-    year = request.GET.get("year", datetime.datetime.now().year)
+    year = request.GET.get("year", datetime.date.today().year)
     try:
         data, code = Holiday().get_legal_holiday(str(year))
     except:
@@ -32,7 +32,10 @@ def next_holiday(request):
     date = datetime.date.today()
     date_str = request.GET.get("date", None)
     if date_str:
-        date = hutils.str_to_date(date_str)
+        try:
+            date = hutils.str_to_date(date_str)
+        except:
+            return JsonResponse({"status": -1, "data": {"message": "暂不支持该年的查询或输入的格式不正确"}})
     data, code = Holiday().get_legal_holiday(str(date.year))
     holiday_list: list = data["message"]
     holiday_count = len(holiday_list)
@@ -42,6 +45,7 @@ def next_holiday(request):
         start_date, end_date = split_date_duration(holiday_info["duration"], date)
         if date < start_date:
             response_data["data"] = {
+                "date": start_date,
                 "duration": holiday_info["duration"],
                 "rest": holiday_info["rest"],
                 "days": holiday_info["days"],
@@ -55,8 +59,9 @@ def next_holiday(request):
         next_start_date, next_end_date = split_date_duration(
             next_holiday_info["duration"], date
         )
-        if (start_date <= date <= end_date) and (end_date < date < next_start_date):
+        if (start_date <= date <= end_date) or (end_date < date < next_start_date):
             response_data["data"] = {
+                "date": next_start_date,
                 "duration": next_holiday_info["duration"],
                 "rest": next_holiday_info["rest"],
                 "days": next_holiday_info["days"],

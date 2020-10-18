@@ -1,3 +1,5 @@
+import datetime
+
 import hutils
 import xlrd
 import os
@@ -19,8 +21,10 @@ class Holiday(object):
         holiday_data = []
         for i in range(sheet.nrows):
             row_data = sheet.row_values(i)
+            start_date, end_date = split_date_duration(row_data[1], datetime.date.today())
             holiday_data.append({
                 "name": row_data[0],
+                "date": start_date,
                 "duration": row_data[1],
                 "rest": row_data[2],
                 "days": row_data[3]

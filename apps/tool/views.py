@@ -180,7 +180,7 @@ def base64_view(request):
 
 def holiday_view(request):
     """节假日"""
-    year = datetime.datetime.now().year
+    year = datetime.date.year
     date, code = Holiday().get_legal_holiday(str(year))
     holiday = date["message"]
     return render(request, "tool/holiday.html", {"year": year, "holiday": holiday})
