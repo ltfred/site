@@ -3,7 +3,7 @@ import datetime
 import hutils
 from django.http import JsonResponse
 from tool.apis.holiday import Holiday
-from tool.utils.common import split_date_duration
+from tool.utils.common import split_date_duration, generate_response_data
 
 
 def holiday(request):
@@ -39,32 +39,18 @@ def next_holiday(request):
     data, code = Holiday().get_legal_holiday(str(date.year))
     holiday_list: list = data["message"]
     holiday_count = len(holiday_list)
-    response_data = {"status": 0}
     for holiday_info in holiday_list:
         holiday_index = holiday_list.index(holiday_info)
         start_date, end_date = split_date_duration(holiday_info["duration"], date)
         if date < start_date:
-            response_data["data"] = {
-                "date": start_date,
-                "duration": holiday_info["duration"],
-                "rest": holiday_info["rest"],
-                "days": holiday_info["days"],
-                "message": f"下一个节假日是{holiday_info['name']}, 距离今天还有{(start_date - date).days}天",
-            }
+            response_data = generate_response_data(start_date, date, holiday_info)
             return JsonResponse(response_data)
         if holiday_index + 1 >= holiday_count:
-            response_data["data"] = {"message": "今年没有假期了呢"}
-            return JsonResponse(response_data)
+            return JsonResponse({"status": 0, "data": {"message": "今年没有假期了哦"}})
         next_holiday_info = holiday_list[holiday_index + 1]
         next_start_date, next_end_date = split_date_duration(
             next_holiday_info["duration"], date
         )
         if (start_date <= date <= end_date) or (end_date < date < next_start_date):
-            response_data["data"] = {
-                "date": next_start_date,
-                "duration": next_holiday_info["duration"],
-                "rest": next_holiday_info["rest"],
-                "days": next_holiday_info["days"],
-                "message": f"下一个节假日是{next_holiday_info['name']}, 距离今天还有{(next_start_date - date).days}天",
-            }
+            response_data = generate_response_data(next_start_date, date, next_holiday_info)
             return JsonResponse(response_data)
