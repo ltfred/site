@@ -23,14 +23,14 @@ from .utils.online_tool import IMAGE_LIST
 logger = logging.getLogger("log")
 
 
-def Toolview(request):
+def tool_view(request):
     category = request.GET.get("category", None)
     tools = get_toollist_by_key(category)
     return render(request, "tool/tool.html", context={"tool_list": tools, "category": category})
 
 
 # 百度主动推送
-def BD_pushview(request):
+def bd_push_view(request):
     if request.is_ajax() and request.method == "POST":
         data = request.POST
         url = data.get("url")
@@ -41,7 +41,7 @@ def BD_pushview(request):
 
 
 # 百度主动推送升级版，提取sitemap链接推送
-def BD_pushview_site(request):
+def bd_push_site_view(request):
     if request.is_ajax() and request.method == "POST":
         data = request.POST
         url = data.get("url")
@@ -58,7 +58,7 @@ def BD_pushview_site(request):
 
 
 # 在线正则表达式
-def regexview(request):
+def regex_view(request):
     if request.is_ajax() and request.method == "POST":
         data = request.POST
         texts = data.get("texts")

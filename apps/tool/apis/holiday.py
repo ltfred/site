@@ -20,7 +20,7 @@ class Holiday(object):
         holiday_data = []
         for i in range(sheet.nrows):
             row_data = sheet.row_values(i)
-            start_date, end_date = split_date_duration(row_data[1], datetime.date.today())
+            start_date, end_date = split_date_duration(row_data[1], year)
             holiday_data.append({
                 "name": row_data[0],
                 "date": start_date,
