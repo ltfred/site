@@ -11,7 +11,6 @@ class Holiday(object):
     def __init__(self):
         path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/doc/holiday.xlsx"
         self.xlsx = xlrd.open_workbook(path)
-        self.sheet = self.xlsx.sheets()[0]
         self.weekday = {1: "周一", 2: "周二", 3: "周三", 4: "周四", 5: "周五", 6: "周六", 7: "周日"}
 
     def get_legal_holiday(self, year: str):

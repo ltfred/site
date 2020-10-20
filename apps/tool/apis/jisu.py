@@ -1,13 +1,15 @@
 import datetime
+import logging
 
 import requests
 
-import os, django
+import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "izone.settings")
-django.setup()
 
 from django.conf import settings
+
+logger = logging.getLogger("log")
 
 
 class JiSu(object):
@@ -18,16 +20,17 @@ class JiSu(object):
 
     def get_history_data(self):
         """获取历史上的今天数据"""
-        date = datetime.datetime.today().date()
+        date = datetime.date.today()
         month, day = date.month, date.day
         url = self.history_url + f"?appkey={self.app_key}&month={month}&day={day}"
         try:
             response = requests.get(url)
-            if response.status_code != 200:
+            if response.json()["status"] != 0:
                 raise
-            data = response.json()["result"]
-        except:
+        except Exception as e:
+            logger.error("JiSu:get_history_data:" + str(e))
             return -1, []
+        data = response.json()["result"]
         history_data = []
         for each_data in data:
             history_data.append(

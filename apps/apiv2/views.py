@@ -1,9 +1,12 @@
 import datetime
+import logging
 
 import hutils
 from django.http import JsonResponse
 from tool.apis.holiday import Holiday
 from tool.utils.common import split_date_duration, generate_response_data
+
+logger = logging.getLogger("log")
 
 
 def holiday(request):
@@ -11,7 +14,8 @@ def holiday(request):
     year = request.GET.get("year", datetime.date.today().year)
     try:
         data, code = Holiday().get_legal_holiday(str(year))
-    except:
+    except Exception as e:
+        logger.error("holiday:" + str(e))
         return JsonResponse({"status": -1, "data": {"message": "出了点问题，请联系我"}})
     return JsonResponse({"status": code, "data": data})
 
@@ -21,7 +25,8 @@ def date_info(request):
     date = request.GET.get("date", datetime.date.today())
     try:
         data, code = Holiday().get_today(str(date))
-    except:
+    except Exception as e:
+        logger.error("date_info:" + str(e))
         return JsonResponse({"status": -1, "data": {"message": "出了点问题，请联系我"}})
     return JsonResponse({"status": code, "data": data})
 
@@ -34,7 +39,8 @@ def next_holiday(request):
     if date_str:
         try:
             date = hutils.str_to_date(date_str)
-        except:
+        except Exception as e:
+            logger.error("date_info:" + str(e))
             return JsonResponse({"status": -1, "data": {"message": "暂不支持该年的查询或输入的格式不正确"}})
     data, code = Holiday().get_legal_holiday(str(date.year))
     holiday_list: list = data["message"]

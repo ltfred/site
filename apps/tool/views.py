@@ -1,5 +1,6 @@
 import base64
 import datetime
+import logging
 
 import hutils
 from django.shortcuts import render
@@ -18,6 +19,8 @@ import re
 import markdown
 
 from .utils.online_tool import IMAGE_LIST
+
+logger = logging.getLogger("log")
 
 
 def Toolview(request):
@@ -63,7 +66,8 @@ def regexview(request):
         key = data.get("key")
         try:
             lis = re.findall(r"{}".format(regex), texts)
-        except:
+        except Exception as e:
+            logger.error("regexview:" + str(e))
             lis = []
         num = len(lis)
         if key == "url" and num:
