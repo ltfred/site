@@ -47,7 +47,7 @@ def next_holiday(request):
     holiday_count = len(holiday_list)
     for holiday_info in holiday_list:
         holiday_index = holiday_list.index(holiday_info)
-        start_date, end_date = split_date_duration(holiday_info["duration"], str(date.today().year + 1))
+        start_date, end_date = split_date_duration(holiday_info["duration"], str(date.today().year))
         if date < start_date:
             response_data = generate_response_data(start_date, date, holiday_info)
             return JsonResponse(response_data)
