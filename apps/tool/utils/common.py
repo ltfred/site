@@ -1,6 +1,10 @@
 import datetime
 
 import hutils
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import JsonResponse
+
+from apiv2.models import APIToken
 
 
 def split_date_duration(duration: str, year: str) -> (datetime.date, datetime.date):
@@ -36,3 +40,23 @@ def generate_response_data(start_date, date, holiday):
             "message": f"下一个节假日是{holiday['name']}, 距离今天还有{(start_date - date).days}天",
         }
     }
+
+
+def check_error(error: bool, code: int, message: str):
+    """检查错误，返回对应的response"""
+    if error:
+        return JsonResponse({"status": code, "data": {"message": message}})
+
+
+def decorator(func):
+    def wrapper(request):
+        token = request.GET.get("token", "")
+        check_error(not token, -1, "请传入token")
+        token: APIToken = APIToken.objects.filter(token=token).first()
+        check_error(not token, -1, "无效的token")
+        check_error(all([token.max_count < token.visit_count, token.max_count != 0]), -1, "当日没有访问次数了")
+        token.visit_count += 1
+        token.save(update_fields=['visit_count'])
+        return func(request)
+    return wrapper
+

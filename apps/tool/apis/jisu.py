@@ -9,8 +9,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "izone.settings")
 
 from django.conf import settings
 
-logger = logging.getLogger("log")
-
 
 class JiSu(object):
     def __init__(self):
@@ -27,8 +25,7 @@ class JiSu(object):
             response = requests.get(url)
             if response.json()["status"] != 0:
                 raise
-        except Exception as e:
-            logger.error("JiSu:get_history_data:" + str(e))
+        except:
             return -1, []
         data = response.json()["result"]
         history_data = []

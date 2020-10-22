@@ -103,7 +103,7 @@ IZONE_TOOLS = {
                 "name": "历史上的今天",
                 "url": "tool:history_today",
                 "img": "blog/img/todayhistory.png",
-                "desc": "历史上的今天发生了那些事",
+                "desc": "回顾历史的长河，历史是生活的一面镜子，历史上的今天，看看都发生了什么重大事件",
             },
             {
                 "name": "放假安排",

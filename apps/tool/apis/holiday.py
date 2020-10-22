@@ -1,5 +1,3 @@
-import datetime
-
 import hutils
 import xlrd
 import os
@@ -13,7 +11,7 @@ class Holiday(object):
         self.xlsx = xlrd.open_workbook(path)
         self.weekday = {1: "周一", 2: "周二", 3: "周三", 4: "周四", 5: "周五", 6: "周六", 7: "周日"}
 
-    def get_legal_holiday(self, year: str):
+    def get_legal_holiday(self, year: str) -> (dict, int):
         if year not in self.xlsx.sheet_names():
             return {"message": "暂不支持该年的查询或输入的格式不正确"}, -1
         sheet = self.xlsx.sheet_by_name(year)
@@ -30,7 +28,7 @@ class Holiday(object):
             })
         return {"year": year, "message": holiday_data}, 0
 
-    def get_today(self, date_str: str):
+    def get_today(self, date_str: str) -> (dict, int):
         try:
             date = hutils.str_to_date(date_str)
         except:
@@ -38,9 +36,9 @@ class Holiday(object):
         data, code = self.get_legal_holiday(str(date.year))
         if code == -1:
             return {"message": "暂不支持该日期的查询或输入的日期格式有误"}, -1
-        # 判断今天是否是法定假日
         for each in data["message"]:
-            start_date, end_date = split_date_duration(each["duration"], date)
+            start_date, end_date = split_date_duration(each["duration"], str(date.year))
+            # 判断今天是否是法定假日
             if start_date <= date <= end_date:
                 return {"date": date, "message": f"今天是{each['name']}呢，好好休息一下吧！"}, 0
             # 判断是否是调休日
@@ -50,6 +48,7 @@ class Holiday(object):
                     date_str = str(date.year) + "-" + each_rest[:2] + "-" + each_rest[3:5]
                     if date == hutils.str_to_date(date_str):
                         return {"date": date, "message": f"今天是{each['name']}的调休哦，要上班呢"}, 0
+        # 不是法定假日或者调休，判断是否为周末
         weekday = date.weekday() + 1
         if weekday in [6, 7]:
             return {"date": date, "message": f"今天是{self.weekday[weekday]}哦，工作一周了，好好放松一下吧！"}, 0
