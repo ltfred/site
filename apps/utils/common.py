@@ -1,7 +1,6 @@
 import datetime
 
 import hutils
-from django.core.handlers.wsgi import WSGIRequest
 from django.http import JsonResponse
 
 from apiv2.models import APIToken

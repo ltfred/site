@@ -1,6 +1,5 @@
 import base64
 import datetime
-import logging
 
 import hutils
 from django.shortcuts import render
@@ -18,7 +17,7 @@ from .templatetags.tool_tags import get_toollist_by_key
 import re
 import markdown
 
-from .utils.online_tool import IMAGE_LIST
+from utils.online_tool import IMAGE_LIST
 
 
 def tool_view(request):

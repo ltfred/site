@@ -2,7 +2,7 @@ import hutils
 import xlrd
 import os
 
-from tool.utils.common import split_date_duration
+from utils.common import split_date_duration
 
 
 class Holiday(object):

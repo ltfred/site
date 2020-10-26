@@ -1,10 +1,9 @@
 import datetime
-import logging
 
 import hutils
 from django.http import JsonResponse
 from tool.apis.holiday import Holiday
-from tool.utils.common import split_date_duration, generate_response_data
+from utils.common import split_date_duration, generate_response_data
 
 
 def holiday(request):
