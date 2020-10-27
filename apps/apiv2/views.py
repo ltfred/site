@@ -3,6 +3,7 @@ import datetime
 import hutils
 from django.http import JsonResponse
 from tool.apis.holiday import Holiday
+from tool.apis.jisu import JiSu
 from utils.common import split_date_duration, generate_response_data
 
 
@@ -65,3 +66,8 @@ def next_holiday(request):
         if (start_date <= date <= end_date) or (end_date < date < next_start_date):
             response_data = generate_response_data(next_start_date, date, next_holiday_info)
             return JsonResponse(response_data)
+
+
+def today_history(request):
+    code, data = JiSu().get_history_data()
+    return JsonResponse({"status": code, "data": data})

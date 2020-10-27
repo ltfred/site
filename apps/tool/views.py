@@ -135,13 +135,7 @@ def editor_view(request):
 
 def history_today_view(request):
     """历史上的今天"""
-    cache_key = "history" + datetime.datetime.today().strftime("%m%d")
-    cache_value = cache.get(cache_key)
-    if cache_value:
-        data = cache_value
-    else:
-        code, data = JiSu().get_history_data()
-        cache.set(cache_key, data, 60 * 60 * 24)
+    code, data = JiSu().get_history_data()
     context = {"history": data}
     return render(request, "tool/history_today.html", context=context)
 
