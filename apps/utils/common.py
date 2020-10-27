@@ -41,19 +41,16 @@ def generate_response_data(start_date, date, holiday):
     }
 
 
-def check_error(error: bool, code: int, message: str):
-    """检查错误，返回对应的response"""
-    if error:
-        return JsonResponse({"status": code, "data": {"message": message}})
-
-
-def decorator(func):
+def token_verify(func):
     def wrapper(request):
         token = request.GET.get("token", "")
-        check_error(not token, -1, "请传入token")
-        token: APIToken = APIToken.objects.filter(token=token).first()
-        check_error(not token, -1, "无效的token")
-        check_error(all([token.max_count < token.visit_count, token.max_count != 0]), -1, "当日没有访问次数了")
+        if not token:
+            return JsonResponse({"status": -1, "data": {"message": "请传入token"}})
+        token: APIToken = APIToken.objects.filter(token=token, deactivated_at__isnull=True).first()
+        if not token:
+            return JsonResponse({"status": -1, "data": {"message": "无效的token"}})
+        if token.max_count < token.visit_count and token.max_count != 0:
+            return JsonResponse({"status": -1, "data": {"message": "当日没有访问次数了"}})
         token.visit_count += 1
         token.save(update_fields=['visit_count'])
         return func(request)

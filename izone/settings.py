@@ -7,8 +7,6 @@ import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import time
 
-import djcelery
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 添加 apps 目录
@@ -272,3 +270,7 @@ HAO_CONSOLE = {
 
 # 极速数据app_key
 JI_SU_APP_KEY = os.getenv("JI_SU_APP_KEY", "cdce972822590784")
+
+
+CELERY_TIME_ZONE = 'Asia/Shanghai'
+CELERY_ENABLE_UTC = True

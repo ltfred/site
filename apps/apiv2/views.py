@@ -4,9 +4,10 @@ import hutils
 from django.http import JsonResponse
 from tool.apis.holiday import Holiday
 from tool.apis.jisu import JiSu
-from utils.common import split_date_duration, generate_response_data
+from utils.common import split_date_duration, generate_response_data, token_verify
 
 
+@token_verify
 def holiday(request):
     """获取某年的法定节假日"""
     year = request.GET.get("year", datetime.date.today().year)
@@ -17,6 +18,7 @@ def holiday(request):
     return JsonResponse({"status": code, "data": data})
 
 
+@token_verify
 def date_info(request):
     """查询某日期的节假日信息"""
     date_str = request.GET.get("date", hutils.date_to_str(datetime.date.today()))
@@ -27,6 +29,7 @@ def date_info(request):
     return JsonResponse({"status": code, "data": data})
 
 
+@token_verify
 def next_holiday(request):
     """获取下一个法定节假日"""
     # 没传日期事默认为今天
@@ -68,6 +71,7 @@ def next_holiday(request):
             return JsonResponse(response_data)
 
 
+@token_verify
 def today_history(request):
     code, data = JiSu().get_history_data()
     return JsonResponse({"status": code, "data": data})
