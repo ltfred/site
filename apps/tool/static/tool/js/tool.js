@@ -282,8 +282,41 @@ function phone_api(CSRF, URL) {
 		},
 		dataType: 'json',
 		success: function(ret) {
-			if (ret.status === 200) {
+			if (ret.code === 200) {
 				var newhtml = '<div class="text-left re-result">' + '省份：' + ret.result["province"] + '<br>' + '城市：' + ret.result["city"] + '<br>' + '运营商：' + ret.result["company"] + '<br>' + '区号：' + ret.result["areacode"] + '<br>'+ "</div>"
+				$('.push-result').html(newhtml);
+			} else {
+				var newhtml = '<div class="text-left re-result">' + ret.msg + "</div>"
+				$('.push-result').html(newhtml);
+			}
+
+		},
+	})
+}
+
+
+function rgb_api(CSRF, URL) {
+	var rgb = $.trim($('#form-rgb').val());
+	if (rgb.length === 0) {
+		alert('输入的不能为空！');
+		return false
+	}
+	$.ajaxSetup({
+	data: {
+		csrfmiddlewaretoken: CSRF
+	}
+	});
+	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
+	$.ajax({
+		type: 'post',
+		url: URL,
+		data: {
+			'rgb': rgb,
+		},
+		dataType: 'json',
+		success: function(ret) {
+			if (ret.code === 0) {
+				var newhtml = '<div class="text-left re-result">' + ret.extra + '<div>' + ret.result + '</div>' + "</div>"
 				$('.push-result').html(newhtml);
 			} else {
 				var newhtml = '<div class="text-left re-result">' + ret.msg + "</div>"

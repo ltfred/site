@@ -94,6 +94,12 @@ IZONE_TOOLS = {
                 "img": "blog/img/base64-code.jpg",
                 "desc": "base64在线加密，解密",
             },
+            {
+                "name": "颜色转换",
+                "url": "tool:color",
+                "img": "blog/img/color.jpg",
+                "desc": "在线16进制与RGB颜色互转",
+            },
         ],
     },
     "query": {

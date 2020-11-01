@@ -1,0 +1,40 @@
+{% extends "tool/base_tool.html" %}
+{% load static %}
+
+{% block head_title %}RGB与16进制互转_开发工具{% endblock %}
+{% block metas %}
+<meta name="description" content="RGB与16进制互转，颜色互转，RGB，16进制，在线工具">
+<meta name="keywords" content="RGB与16进制互转，颜色互转，RGB，16进制，在线工具">
+{% endblock %}
+
+{% block tool_name %}RGB与16进制互转{% endblock %}
+{% block left_content %}
+<div class="card-body p-0">
+    <h3 class="card-title pl-2 title-info">工具说明：</h3>
+    <ul>
+        <li>输入任意RGB或16进制返回对应的16进制或RGB</li>
+        <li>RGB的输入格式为：255,255,255</li>
+        <li>16进制的输入格式为：#009A00</li>
+    </ul>
+</div>
+<div class="mb-3">
+    <div class="form-group">
+        <label>RGB或16进制：</label>
+        <input type="text" class="form-control rounded-0" id="form-rgb" placeholder="输入RGB或16进制" required>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm rounded-0" id="start">转换</button>
+</div>
+<div class="card mb-3 rounded-0">
+    <div class="card-header text-center text-info font-weight-bold py-2">查询结果</div>
+    <div class="card-body push-result text-center p-3">结果显示区</div>
+
+</div>
+{% endblock %}
+
+{% block end_f %}
+<script>
+$('#start').click(function() {
+	rgb_api("{{ csrf_token }}", "{% url 'tool:color' %}");
+})
+</script>
+{% endblock %}

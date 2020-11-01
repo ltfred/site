@@ -6,6 +6,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.utils.html import mark_safe
 from django.core.cache import cache
+
+from utils.common import hex_to_rgb, rgb_to_hex, generate_response
 from .apis.bd_push import push_urls, get_urls
 from .apis.holiday import Holiday
 from .apis.jisu import JiSu
@@ -184,9 +186,40 @@ def phone_view(request):
     """手机号归属地"""
     if request.is_ajax() and request.method == "POST":
         phone = request.POST.get("phone", "")
-        hutils.check_error(not phone, "请输入手机号")
+        if not phone:
+            return generate_response("", "请输入手机号", -1)
         if not re.match(r"^1[3456789]\d{9}$", phone):
-            return JsonResponse({"result": "输入的手机号有误"})
+            return generate_response("", "输入的手机号有误", -1)
         data = JiSu().get_phone(phone)
-        return JsonResponse({"result": data["result"], "msg": data["msg"], "status": data["status"]})
+        return generate_response(data["result"], data["msg"], data["status"])
     return render(request, "tool/phone.html")
+
+
+def color_view(request):
+    """RGB与16进制互转"""
+    if request.is_ajax() and request.method == "POST":
+        color: str = request.POST.get("rgb", "")
+        if not color:
+            return generate_response("", "请传入要转换的颜色", -1)
+        if color.startswith("#"):
+            try:
+                rgb_color = hex_to_rgb(color)
+            except:
+                return generate_response("", "错误的16进制颜色", -1)
+            return generate_response(
+                f"<div>RGB：({rgb_color})</div>",
+                "ok",
+                0,
+                extra=f'色块：<div style="background-color: {color}; width: 50px; height: 30px; display: inline-block;"></div>'
+            )
+        try:
+            hex_color = rgb_to_hex(color)
+        except:
+            return generate_response("", "错误的RGB颜色", -1)
+        return generate_response(
+            f"<div>16进制：{hex_color}</div>",
+            "ok",
+            0,
+            extra=f'色块：<div style="background-color: {hex_color}; width: 50px; height: 30px; display: inline-block;"></div>'
+        )
+    return render(request, "tool/rgb.html")

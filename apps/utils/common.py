@@ -56,3 +56,40 @@ def token_verify(func):
         return func(request)
     return wrapper
 
+
+def rgb_to_hex(rgb):
+    """
+    RGB格式颜色转换为16进制颜色格式
+    @param rgb: RGB格式
+    @return: 16进制
+    """
+    rgb = rgb.split(',')
+    color = '#'
+    for i in rgb:
+        num = int(i)
+        color += str(hex(num))[-2:].replace('x', '0').upper()
+    return color
+
+
+def hex_to_rgb(hex):
+    """
+    16进制颜色格式颜色转换为RGB格式
+    @param hex: 16进制
+    @return: RGB
+    """
+    r = int(hex[1:3], 16)
+    g = int(hex[3:5], 16)
+    b = int(hex[5:7], 16)
+    rgb = str(r)+','+str(g)+','+str(b)
+    return rgb
+
+
+def generate_response(result, msg, code, extra=None):
+    """
+    返回JsonResponse
+    @param result: 数据
+    @param msg: msg
+    @param code: 状态吗
+    @param extra: None
+    """
+    return JsonResponse({"result": result, "msg": msg, "code": code, "extra": extra})
