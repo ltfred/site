@@ -67,6 +67,8 @@ def rgb_to_hex(rgb):
     color = '#'
     for i in rgb:
         num = int(i)
+        if not 0 <= num <= 255:
+            raise
         color += str(hex(num))[-2:].replace('x', '0').upper()
     return color
 
