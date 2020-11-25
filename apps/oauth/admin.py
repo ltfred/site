@@ -6,7 +6,7 @@ from .models import Ouser
 class OuserAdmin(admin.ModelAdmin):
     list_display = ("username", "email", "is_staff", "is_active", "date_joined")
     fieldsets = (
-        ("基础信息", {"fields": (("username", "email"), ("link",))}),
+        ("基础信息", {"fields": (("username", "email"), ("link",), ("avatar",))}),
         (
             "权限信息",
             {
