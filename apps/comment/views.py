@@ -7,14 +7,13 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.shortcuts import get_object_or_404
-from . import handlers
 
 user_model = settings.AUTH_USER_MODEL
 
 
 @login_required
 @require_POST
-def AddcommentView(request):
+def add_comment_view(request):
     if request.is_ajax() and request.method == "POST":
         data = request.POST
         new_user = request.user
@@ -50,7 +49,7 @@ def AddcommentView(request):
 
 
 @login_required
-def NotificationView(request, is_read=None):
+def notification_view(request, is_read=None):
     """展示提示消息列表"""
     now_date = datetime.now()
     return render(

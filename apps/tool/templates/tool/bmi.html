@@ -1,0 +1,42 @@
+{% extends "tool/base_tool.html" %}
+{% load static %}
+
+{% block head_title %}BMI值计算_便民工具{% endblock %}
+{% block metas %}
+<meta name="description" content="BMI值计算，BMI，便民工具，在线工具">
+<meta name="keywords" content="BMI值计算，BMI，便民工具，在线工具">
+{% endblock %}
+
+{% block tool_name %}BMI值计算{% endblock %}
+{% block left_content %}
+<div class="card-body p-0">
+    <h3 class="card-title pl-2 title-info">工具说明：</h3>
+    <ul>
+        <li>身体质量指数(Body Mass Index, 简称BMI), 亦称克托莱指数, 是目前国际上常用的衡量人体胖瘦程度以及是否健康的一个标准。BMI 值超标，意味着你必须减肥了</li>
+    </ul>
+</div>
+<div class="mb-3">
+    <div class="form-group">
+        <label>身高(cm)：</label>
+        <input type="text" class="form-control rounded-0" id="form-height" placeholder="输入身高(cm)" required>
+    </div>
+    <div class="form-group">
+        <label>体重(kg)：</label>
+        <input type="text" class="form-control rounded-0" id="form-weight" placeholder="输入体重(kg)" required>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm rounded-0" id="start">计算</button>
+</div>
+<div class="card mb-3 rounded-0">
+    <div class="card-header text-center text-info font-weight-bold py-2">计算结果</div>
+    <div class="card-body push-result text-center p-3">结果显示区</div>
+
+</div>
+{% endblock %}
+
+{% block end_f %}
+<script>
+$('#start').click(function() {
+	bmi_api("{{ csrf_token }}", "{% url 'tool:bmi' %}");
+})
+</script>
+{% endblock %}

@@ -132,7 +132,7 @@ class TagView(generic.ListView):
         return context_data
 
 
-def AboutView(request):
+def about_view(request):
     obj = AboutBlog.objects.first()
     if obj:
         ud = obj.update_date.strftime("%Y%m%d%H%M%S")

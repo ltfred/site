@@ -326,3 +326,39 @@ function rgb_api(CSRF, URL) {
 		},
 	})
 }
+
+
+function bmi_api(CSRF, URL) {
+	var height = $.trim($('#form-height').val());
+	var weight = $.trim($('#form-weight').val());
+	if (height.length === 0 | weight.length === 0) {
+		alert('输入的不能为空！');
+		return false
+	}
+	$.ajaxSetup({
+	data: {
+		csrfmiddlewaretoken: CSRF
+	}
+	});
+	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
+	$.ajax({
+		type: 'post',
+		url: URL,
+		data: {
+			'height': height,
+			'weight': weight,
+		},
+		dataType: 'json',
+		success: function(ret) {
+			if (ret.code === 200) {
+				var newhtml = '<div class="text-left re-result">' + 'BMI值：' + ret.message + '<div>' + '信息：' + ret.cat + '</div>' + "</div>"
+				$('.push-result').html(newhtml);
+				console.log(ret.message)
+			} else {
+				var newhtml = '<div class="text-left re-result">' + ret.message + "</div>"
+				$('.push-result').html(newhtml);
+			}
+
+		},
+	})
+}

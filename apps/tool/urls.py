@@ -14,7 +14,7 @@ from .views import (
     base64_view,
     holiday_view,
     phone_view,
-    color_view
+    color_view, bmi_view
 )
 
 urlpatterns = [
@@ -35,5 +35,6 @@ urlpatterns = [
     path("base64/", base64_view, name="base64"),  # base64加解密
     path("holiday/", holiday_view, name="holiday"),  # 节假日安排
     path("phone/", phone_view, name="phone"),  # 手机号归属地
-    path("color/", color_view, name="color"),  # 手机号归属地
+    path("color/", color_view, name="color"),  # 颜色转换
+    path("bmi/", bmi_view, name="bmi"),  # bmi
 ]

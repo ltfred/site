@@ -122,6 +122,12 @@ IZONE_TOOLS = {
                 "url": "tool:phone",
                 "img": "blog/img/shouji.png",
                 "desc": "手机号归属地查询，支持移动，电信，联通",
+            },
+            {
+                "name": "BMI值计算",
+                "url": "tool:bmi",
+                "img": "blog/img/bmi.png",
+                "desc": "身体质量指数, 亦称克托莱指数, 是目前国际上常用的衡量人体胖瘦程度以及是否健康的一个标准",
             }
         ],
     },

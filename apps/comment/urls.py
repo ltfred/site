@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
-from .views import AddcommentView, NotificationView, mark_to_read, mark_to_delete
+from .views import add_comment_view, notification_view, mark_to_read, mark_to_delete
 
 urlpatterns = [
-    path("add/", AddcommentView, name="add_comment"),
-    path("notification/", NotificationView, name="notification"),
+    path("add/", add_comment_view, name="add_comment"),
+    path("notification/", notification_view, name="notification"),
     path(
         "notification/no-read/",
-        NotificationView,
+        notification_view,
         {"is_read": "false"},
         name="notification_no_read",
     ),

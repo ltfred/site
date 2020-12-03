@@ -223,3 +223,23 @@ def color_view(request):
             extra=f'色块：<div style="background-color: {hex_color}; width: 50px; height: 30px; display: inline-block;"></div>'
         )
     return render(request, "tool/rgb.html")
+
+
+def bmi_view(request):
+    if request.is_ajax() and request.method == "POST":
+        height = request.POST.get("height", "")
+        weight = request.POST.get("weight", "")
+        if not all([height, weight]):
+            return JsonResponse({"code": 400, "message": "请传入身高和体重"})
+        height, weight = list(map(float, [height, weight]))
+        bmi = hutils.quantize(weight / (height / 100) ** 2)
+        if bmi <= 18.4:
+            cat = "偏廋"
+        elif 18.5 < bmi <= 23.9:
+            cat = "正常"
+        elif 24.0 < bmi <= 27.9:
+            cat = "过重"
+        else:
+            cat = "肥胖"
+        return JsonResponse({"code": 200, "message": bmi, "cat": cat})
+    return render(request, "tool/bmi.html")

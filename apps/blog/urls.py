@@ -5,7 +5,7 @@ from .views import (
     DetailView,
     CategoryView,
     TagView,
-    AboutView,
+    about_view,
     SilianView,
     MySearchView,
     ArchiveView,
@@ -25,7 +25,7 @@ urlpatterns = [
     ),
     path("tag/<slug:slug>/", TagView.as_view(), name="tag"),
     path("tag/<slug:slug>/hot/", TagView.as_view(), {"sort": "v"}, name="tag_hot"),
-    path("about/", AboutView, name="about"),  # About页面
+    path("about/", about_view, name="about"),  # About页面
     path("timeline/", TimelineView.as_view(), name="timeline"),  # timeline页面
     path("archive/", ArchiveView.as_view(), name="archive"),  # 归档页面
     path(
