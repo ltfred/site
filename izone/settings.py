@@ -241,6 +241,8 @@ EMAIL_TIMEOUT = 5
 EMAIL_USE_SSL = os.getenv("IZONE_EMAIL_USE_SSL", "True").upper() == "TRUE"
 # 默认发件人，不设置的话django默认使用的webmaster@localhost，所以要设置成自己可用的邮箱
 DEFAULT_FROM_EMAIL = os.getenv("IZONE_DEFAULT_FROM_EMAIL", "Petrichor <ltfred@163.com>")
+# 接受邮件的邮箱
+TO_EMAIL = os.getenv("IZONE_TO_EMAIL", "nuyoah08@gmail.com")
 
 # 网站默认设置和上下文信息
 SITE_LOGO_NAME = os.getenv("IZONE_LOGO_NAME", "Petrichor")

@@ -5,7 +5,9 @@ from django.utils.text import slugify
 from django.views import generic, View
 from django.conf import settings
 
+from izone.settings import DEFAULT_FROM_EMAIL, TO_EMAIL
 from .models import Article, Tag, Category, Timeline, Silian, AboutBlog, FriendLink
+from .tasks import sync_send_mail
 from .utils import site_full_url
 from django.core.cache import cache
 
@@ -191,10 +193,12 @@ class LinkView(View):
                 name=name,
                 link=address,
                 description=desc,
-                is_show=True
             )
         except:
             return JsonResponse({"message": "申请失败，稍后再试"})
+        subject = message = "友链申请"
+        html_message = f"网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
+        sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, TO_EMAIL, html_message=html_message)
         return JsonResponse({
                 "message": f"申请成功<br>网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
             }
