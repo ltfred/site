@@ -241,5 +241,5 @@ def bmi_view(request):
             cat = "过重"
         else:
             cat = "肥胖"
-        return JsonResponse({"code": 200, "message": bmi, "cat": cat})
+        return JsonResponse({"code": 200, "message": f"BMI值：{bmi}<br>信息：{cat}"})
     return render(request, "tool/bmi.html")

@@ -9,7 +9,7 @@ from .views import (
     SilianView,
     MySearchView,
     ArchiveView,
-    TimelineView,
+    TimelineView, LinkView,
 )
 
 urlpatterns = [
@@ -32,4 +32,5 @@ urlpatterns = [
         "silian.xml", SilianView.as_view(content_type="application/xml"), name="silian"
     ),  # 死链页面
     path("search/", MySearchView.as_view(), name="search_view"),  # 全文搜索
+    path("link/", LinkView.as_view(), name="link")
 ]

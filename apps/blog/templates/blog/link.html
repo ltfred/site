@@ -1,0 +1,54 @@
+{% extends "tool/base_tool.html" %}
+{% load static %}
+
+{% block head_title %}友链申请{% endblock %}
+{% block metas %}
+<meta name="description" content="友链申请">
+<meta name="keywords" content="友链申请">
+{% endblock %}
+
+{% block tool %}
+{% endblock %}
+{% block tool_name %}友链申请{% endblock %}
+{% block left_content %}
+<div class="card-body p-0">
+    <h3 class="card-title pl-2 title-info">友链申请：</h3>
+    <ul>
+        <li>申请友链的站长朋友们请先添加好本站链接，谢谢！！！</li>
+        <li>本站会定期清理不能访问的友链</li>
+        <li>提交申请并通过审核后将会发邮件通知</li>
+    </ul>
+</div>
+<div class="mb-3">
+    <div class="form-group">
+        <label>网站名称：</label>
+        <input type="text" class="form-control rounded-0" id="form-name" placeholder="请输入要申请的链接名称" required>
+    </div>
+    <div class="form-group">
+        <label>网站地址：</label>
+        <input type="text" class="form-control rounded-0" id="form-address" placeholder="请填写http或https开头的完整形式地址" required>
+    </div>
+    <div class="form-group">
+        <label>网站简介：</label>
+        <input type="text" class="form-control rounded-0" id="form-desc" placeholder="请输入要申请的链接简介" required>
+    </div>
+    <div class="form-group">
+        <label>邮箱(选填)：</label>
+        <input type="text" class="form-control rounded-0" id="form-email" placeholder="请输邮箱" required>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm rounded-0" id="start">提交</button>
+</div>
+<div class="card mb-3 rounded-0">
+    <div class="card-header text-center text-info font-weight-bold py-2">申请结果</div>
+    <div class="card-body push-result text-center p-3">结果显示区</div>
+
+</div>
+{% endblock %}
+
+{% block end_f %}
+<script>
+$('#start').click(function() {
+	link_api("{{ csrf_token }}", "{% url 'blog:link' %}");
+})
+</script>
+{% endblock %}

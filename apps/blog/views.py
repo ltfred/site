@@ -1,8 +1,11 @@
+import hutils
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
-from django.views import generic
+from django.views import generic, View
 from django.conf import settings
-from .models import Article, Tag, Category, Timeline, Silian, AboutBlog
+
+from .models import Article, Tag, Category, Timeline, Silian, AboutBlog, FriendLink
 from .utils import site_full_url
 from django.core.cache import cache
 
@@ -174,3 +177,25 @@ def robots(request):
     return render(
         request, "robots.txt", context={"site_url": site_url}, content_type="text/plain"
     )
+
+
+class LinkView(View):
+
+    def get(self, request):
+        return render(request, "blog/link.html")
+
+    def post(self, request):
+        name, address, desc, email = hutils.get_data(request.POST, "name", "address", "desc", "email", optional=True)
+        try:
+            FriendLink.objects.create(
+                name=name,
+                link=address,
+                description=desc,
+                is_show=True
+            )
+        except:
+            return JsonResponse({"message": "申请失败，稍后再试"})
+        return JsonResponse({
+                "message": f"申请成功<br>网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
+            }
+        )

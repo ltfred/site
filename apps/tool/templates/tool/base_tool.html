@@ -14,9 +14,11 @@
                     <li class="breadcrumb-item">
                         <i class="fa fa-home mr-1"></i><a href="{% url 'blog:index' %}">首页</a>
                     </li>
+                    {% block tool %}
                     <li class="breadcrumb-item">
-                        <a href="{% url 'tool:total' %}">在线工具</a>
+                            <a href="{% url 'tool:total' %}">在线工具</a>
                     </li>
+                    {% endblock %}
                     <li class="breadcrumb-item active" aria-current="page">{% block tool_name %}{% endblock %}</li>
                 </ol>
             </nav>

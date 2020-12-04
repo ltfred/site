@@ -351,7 +351,55 @@ function bmi_api(CSRF, URL) {
 		dataType: 'json',
 		success: function(ret) {
 			if (ret.code === 200) {
-				var newhtml = '<div class="text-left re-result">' + 'BMI值：' + ret.message + '<div>' + '信息：' + ret.cat + '</div>' + "</div>"
+				var newhtml = '<div class="text-left re-result">' + ret.message + "</div>"
+				$('.push-result').html(newhtml);
+				console.log(ret.message)
+			} else {
+				var newhtml = '<div class="text-left re-result">' + ret.message + "</div>"
+				$('.push-result').html(newhtml);
+			}
+
+		},
+	})
+}
+
+
+function link_api(CSRF, URL) {
+	var name = $.trim($('#form-name').val());
+	var address = $.trim($('#form-address').val());
+	var desc = $.trim($('#form-desc').val());
+	var email = $.trim($('#form-email').val());
+	if (name.length === 0) {
+		alert('输入的网站名称不能为空！');
+		return false
+	}
+	if (address.length === 0) {
+		alert('输入的网站链接不能为空！');
+		return false
+	}
+	if (desc.length === 0) {
+		alert('输入的网站简介不能为空！');
+		return false
+	}
+	$.ajaxSetup({
+	data: {
+		csrfmiddlewaretoken: CSRF
+	}
+	});
+	$('.push-result').html('<i class="fa fa-spinner fa-pulse fa-3x my-3"></i>');
+	$.ajax({
+		type: 'post',
+		url: URL,
+		data: {
+			'name': name,
+			'address': address,
+			'desc': desc,
+			'email': (email || ""),
+		},
+		dataType: 'json',
+		success: function(ret) {
+			if (ret.code === 200) {
+				var newhtml = '<div class="text-left re-result">' + ret.message + "</div>"
 				$('.push-result').html(newhtml);
 				console.log(ret.message)
 			} else {
