@@ -188,14 +188,6 @@ class LinkView(View):
 
     def post(self, request):
         name, address, desc, email = hutils.get_data(request.POST, "name", "address", "desc", "email", optional=True)
-        try:
-            FriendLink.objects.create(
-                name=name,
-                link=address,
-                description=desc,
-            )
-        except:
-            return JsonResponse({"message": "申请失败，稍后再试"})
         subject = message = "友链申请"
         html_message = f"网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
         sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, TO_EMAIL, html_message=html_message)

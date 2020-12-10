@@ -217,6 +217,7 @@ class FriendLink(models.Model):
     description = models.CharField("网站描述", max_length=100, blank=True)
     link = models.URLField("友链地址", help_text="请填写http或https开头的完整形式地址")
     logo = models.URLField("网站LOGO", help_text="请填写http或https开头的完整形式地址", blank=True)
+    email = models.EmailField(verbose_name="邮件", null=True, blank=True)
     create_date = models.DateTimeField("创建时间", auto_now_add=True)
     is_active = models.BooleanField("是否有效", default=True)
     is_show = models.BooleanField("是否首页展示", default=False)
