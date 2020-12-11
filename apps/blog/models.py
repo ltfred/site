@@ -1,11 +1,17 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import reverse
 import markdown
 import re
 
 
 # 文章关键词，用来作为SEO中keywords
+from izone.settings import DEFAULT_FROM_EMAIL
+from .tasks import sync_send_mail
+
+
 class Keyword(models.Model):
     name = models.CharField("文章关键词", max_length=20)
 
@@ -294,3 +300,13 @@ class SiteConfig(models.Model):
     class Meta:
         verbose_name = "网站配置"
         verbose_name_plural = verbose_name
+
+
+@receiver(post_save, sender=FriendLink)
+def email_notify_handler(sender, instance, created, **kwargs):
+    """添加友链后发送邮件通知"""
+    email = instance.email
+    if created and email:
+        subject = message = "友链申请成功"
+        html_message = f"Hey！<br>&emsp;&emsp;你在<span>https://www.ltfred.com/</span>申请的友链已添加成功。网站名称：{instance.name}，网站地址：<span>{instance.link}</span>，网站简介：{instance.description}。"
+        sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, email, html_message=html_message)
