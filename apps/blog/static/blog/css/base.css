@@ -71,7 +71,7 @@ a:hover {
     content: ">";
 }
 blockquote {
-    padding: .8em;
+    padding: 0.1rem 0.8rem 0.0rem;
     margin: 0 0 2.2em;
     border-left: 4px solid #b4b4b4;
     background: #f7f7f7;;

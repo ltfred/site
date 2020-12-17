@@ -1,3 +1,7 @@
+import datetime
+import os
+
+import hutils
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -5,7 +9,6 @@ from django.dispatch import receiver
 from django.shortcuts import reverse
 import markdown
 import re
-
 
 # 文章关键词，用来作为SEO中keywords
 from izone.settings import DEFAULT_FROM_EMAIL
@@ -274,7 +277,6 @@ class AboutBlog(models.Model):
 
 
 class SiteConfig(models.Model):
-
     logo_name = models.CharField(
         verbose_name="网站logo名字", max_length=20, null=True, blank=True
     )
@@ -303,10 +305,14 @@ class SiteConfig(models.Model):
 
 
 @receiver(post_save, sender=FriendLink)
-def email_notify_handler(sender, instance, created, **kwargs):
+def email_notify_handler(sender, instance: FriendLink, created, **kwargs):
     """添加友链后发送邮件通知"""
     email = instance.email
     if created and email:
         subject = message = "友链申请成功"
-        html_message = f"Hey！<br>&emsp;&emsp;你在<span>https://www.ltfred.com/</span>申请的友链已添加成功。网站名称：{instance.name}，网站地址：<span>{instance.link}</span>，网站简介：{instance.description}。"
+        path = os.path.dirname(os.path.abspath(__file__)) + "/templates/blog/email.html"
+        with open(path, "r") as f:
+            html_message = f.read()
+            html_message = html_message.replace("name", instance.name).replace("address", instance.link, 2).replace(
+                "logo", instance.logo).replace("desc", instance.description).replace("date", hutils.date_to_str(datetime.datetime.now(), fmt="%Y年%m月%d日"))
         sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, email, html_message=html_message)

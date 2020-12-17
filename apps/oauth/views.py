@@ -5,8 +5,6 @@ from .forms import ProfileForm
 from django.contrib import messages
 import os
 
-# Create your views here.
-
 
 @login_required
 def profile_view(request):
