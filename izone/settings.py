@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "tool",  # 工具
     "comment",  # 评论
     "apiv2",
+    "photo",
     "django_tctip",
 ]
 
@@ -190,9 +191,9 @@ REST_FRAMEWORK = {
 
 # 配置数据库
 MYSQL_HOST = os.getenv("IZONE_MYSQL_HOST", "127.0.0.1")
-MYSQL_NAME = os.getenv("IZONE_MYSQL_NAME", "mysite")
-MYSQL_USER = os.getenv("IZONE_MYSQL_USER", "root")
-MYSQL_PASSWORD = os.getenv("IZONE_MYSQL_PASSWORD", "mysql123")
+MYSQL_NAME = os.getenv("IZONE_MYSQL_NAME", "")
+MYSQL_USER = os.getenv("IZONE_MYSQL_USER", "")
+MYSQL_PASSWORD = os.getenv("IZONE_MYSQL_PASSWORD", "")
 MYSQL_PORT = os.getenv("IZONE_MYSQL_PORT", 3306)
 
 DATABASES = {
@@ -263,11 +264,11 @@ CNZZ_PROTOCOL = os.getenv("IZONE_CNZZ_PROTOCOL", "")
 MY_SITE_VERIFICATION = os.getenv("IZONE_SITE_VERIFICATION", "")
 # 使用 http 还是 https （sitemap 中的链接可以体现出来）
 PROTOCOL_HTTPS = os.getenv("IZONE_PROTOCOL_HTTPS", "HTTPS").lower()
-# hao.tendcode.com
+#
 HAO_CONSOLE = {
     "flag": os.getenv("IZONE_HAO_FLAG", "False").upper() == "TRUE",
-    "name": os.getenv("IZONE_HAO_NAME", "千山导航"),
-    "url": os.getenv("IZONE_HAO_URL", "http://www.qianshan.co/"),
+    "name": os.getenv("IZONE_HAO_NAME", "Fred"),
+    "url": os.getenv("IZONE_HAO_URL", "https://www.ltfred.top/"),
 }
 
 # 极速数据app_key
