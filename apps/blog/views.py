@@ -1,3 +1,5 @@
+import datetime
+
 import hutils
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -81,6 +83,11 @@ class DetailView(generic.DetailView):
             obj.toc = md.toc
             cache.set(md_key, (obj.body, obj.toc), 60 * 60 * 12)
         return obj
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data()
+        data["is_show_danger"] = (datetime.datetime.now() - self.get_object().update_date).days >= 365
+        return data
 
 
 class CategoryView(generic.ListView):

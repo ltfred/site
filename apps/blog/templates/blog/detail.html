@@ -22,6 +22,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-xl-10">
+            {% if is_show_danger %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              本文最后更新于<strong>{{ article.update_date|date:'Y年m月d日' }}</strong>，其正确性待参考！
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endif %}
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-white border-0 rounded-0 mb-2 py-2 f-15">
                     <li class="breadcrumb-item">
