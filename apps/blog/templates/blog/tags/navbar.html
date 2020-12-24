@@ -15,12 +15,11 @@
             </li>
             <li class="nav-item mr-2">
                 {% url 'blog:archive' as archive_url %}
-                <a class="nav-link py-md-3 {% if request.path == archive_url %}active{% endif %}" href="{{ archive_url }}"><i class="fa fa-sitemap mr-1"></i>归档</a>
+                <a class="nav-link py-md-3 {% if request.path == archive_url %}active{% endif %}" href="{{ archive_url }}"><i class="fa fa-archive mr-1"></i>归档</a>
             </li>
-            {% if tool_flag %}
-            <li class="nav-item mr-2">
-                {% url 'tool:total' as tool_url %}
-                <a class="nav-link py-md-3 {% if request.resolver_match.namespace == 'tool' %}active{% endif %}" href="{{ tool_url }}"><i class="fa fa-balance-scale mr-1"></i>在线工具</a>
+            {% if user.is_staff %}
+            <li class="nav-item mr-2 d-none d-lg-block">
+                <a class="nav-link py-md-3" href="{% url 'photo:list' %}" target="_blank"><i class="fa fa-photo mr-1"></i>相册</a>
             </li>
             {% endif %}
             {% if hao_console.flag %}
@@ -33,9 +32,15 @@
                 <a class="nav-link py-md-3" href="{% url 'api:api-root' %}" target="_blank"><i class="fa fa-key mr-1"></i>API</a>
             </li>
             {% endif %}
+            {% if tool_flag %}
+            <li class="nav-item mr-2">
+                {% url 'tool:total' as tool_url %}
+                <a class="nav-link py-md-3 {% if request.resolver_match.namespace == 'tool' %}active{% endif %}" href="{{ tool_url }}"><i class="fa fa-wrench mr-1"></i>在线工具</a>
+            </li>
+            {% endif %}
             <li class="nav-item mr-2 ">
                 {% url 'blog:about' as about_url %}
-                <a class="nav-link py-md-3 {% if request.path == about_url %}active{% endif %}" href="{{ about_url }}"><i class="fa fa-anchor mr-1"></i>关于</a>
+                <a class="nav-link py-md-3 {% if request.path == about_url %}active{% endif %}" href="{{ about_url }}"><i class="fa fa-comment mr-1"></i>关于</a>
             </li>
             <form class="nav-item navbar-form mr-2 py-md-2" role="search" method="get" id="searchform" action="{% url 'blog:search_view'%}">
                 <div class="input-group">
