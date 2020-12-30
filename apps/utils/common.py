@@ -1,7 +1,9 @@
 import datetime
 
 import hutils
+from django.contrib.auth.mixins import AccessMixin
 from django.http import JsonResponse
+from django.shortcuts import redirect
 
 from apiv2.models import APIToken
 
@@ -95,3 +97,12 @@ def generate_response(result, msg, code, extra=None):
     @param extra: None
     """
     return JsonResponse({"result": result, "msg": msg, "code": code, "extra": extra})
+
+
+class PhotoLoginRequiredMixin(AccessMixin):
+    """管理员才能访问相册"""
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_staff:
+            return redirect("/")
+        return super().dispatch(request, *args, **kwargs)

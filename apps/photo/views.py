@@ -1,17 +1,7 @@
-from django.contrib.auth.mixins import AccessMixin
-from django.shortcuts import redirect
 from django.views import generic
 
 from photo.models import Photo, PhotoCategory
-
-
-class PhotoLoginRequiredMixin(AccessMixin):
-    """Verify that the current user is authenticated."""
-    def dispatch(self, request, *args, **kwargs):
-        user = request.user
-        if not user.is_staff:
-            return redirect("/")
-        return super().dispatch(request, *args, **kwargs)
+from utils.common import PhotoLoginRequiredMixin
 
 
 class PhotoView(PhotoLoginRequiredMixin, generic.ListView):

@@ -9,7 +9,7 @@ def notify_handler(sender, instance, created, **kwargs):
     # 判断是否是第一次生成评论，后续修改评论不会再次激活信号
     if created:
         if instance.rep_to:
-            """如果评论是一个回复评论，则同时通知给文章作者和回复的评论人，如果2者相等，则只通知一次"""
+            # 如果评论是一个回复评论，则同时通知给文章作者和回复的评论人，如果2者相等，则只通知一次
             if the_article.author == instance.rep_to.author:
                 get_p = instance.rep_to.author
                 if create_p != get_p:
@@ -31,7 +31,7 @@ def notify_handler(sender, instance, created, **kwargs):
                     )
                     new2.save()
         else:
-            """如果评论是一个一级评论而不是回复其他评论并且不是作者自评，则直接通知给文章作者"""
+            # 如果评论是一个一级评论而不是回复其他评论并且不是作者自评，则直接通知给文章作者
             get_p = the_article.author
             if create_p != get_p:
                 new_notify = Notification(
