@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib.sitemaps import Sitemap
-from .models import Article, Category, Tag
 from django.db.models.aggregates import Count
+
+from .models import Article, Category, Tag
 from .utils import site_protocol
 
 
@@ -25,9 +26,7 @@ class CategorySitemap(MySitemap):
     priority = 0.8
 
     def items(self):
-        return Category.objects.annotate(total_num=Count("article")).filter(
-            total_num__gt=0
-        )
+        return Category.objects.annotate(total_num=Count("article")).filter(total_num__gt=0)
 
     def lastmod(self, obj):
         return obj.article_set.first().create_date

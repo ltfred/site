@@ -1,33 +1,31 @@
 # -*- coding: utf-8 -*-
 from django.urls import path, re_path
+
 from .views import (
-    tool_view,
-    bd_push_view,
+    base64_view,
     bd_push_site_view,
-    regex_view,
-    useragent_view,
-    html_characters,
+    bd_push_view,
+    bmi_view,
+    color_view,
     docker_search_view,
     editor_view,
     history_today_view,
-    picture_to_base64_view,
-    base64_view,
     holiday_view,
+    html_characters,
     phone_view,
-    color_view, bmi_view
+    picture_to_base64_view,
+    regex_view,
+    tool_view,
+    useragent_view,
 )
 
 urlpatterns = [
     path("", tool_view, name="total"),  # 工具汇总页
     path("baidu-linksubmit/", bd_push_view, name="baidu_push"),  # 百度主动推送
-    path(
-        "baidu-linksubmit-sitemap/", bd_push_site_view, name="baidu_push_site"
-    ),  # 百度主动推送sitemap
+    path("baidu-linksubmit-sitemap/", bd_push_site_view, name="baidu_push_site"),  # 百度主动推送sitemap
     path("regex/", regex_view, name="regex"),  # 正则表达式在线
     path("user-agent/", useragent_view, name="useragent"),  # user-agent生成器
-    path(
-        "html-special-characters/", html_characters, name="html_characters"
-    ),  # HTML特殊字符查询
+    path("html-special-characters/", html_characters, name="html_characters"),  # HTML特殊字符查询
     path("docker-search/", docker_search_view, name="docker_search"),  # docker镜像查询
     path("markdown-editor/", editor_view, name="markdown_editor"),  # editor.md 工具
     path("history-today/", history_today_view, name="history_today"),  # 历史上的今天

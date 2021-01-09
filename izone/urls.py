@@ -13,16 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
-from django.contrib import admin
-from django.views.generic import RedirectView
-
-from django.contrib.sitemaps.views import sitemap
-from blog.sitemaps import ArticleSitemap, CategorySitemap, TagSitemap
 from blog.feeds import AllArticleRssFeed
+from blog.sitemaps import ArticleSitemap, CategorySitemap, TagSitemap
 from blog.views import robots
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
+from django.urls import include, path
+from django.views.generic import RedirectView
 
 # 网站地图
 sitemaps = {
@@ -35,13 +34,9 @@ urlpatterns = [
     path("favicon.ico", RedirectView.as_view(url="/static/blog/img/favicon.ico")),
     path("adminx/", admin.site.urls),
     path("accounts/", include("allauth.urls")),  # allauth
-    path(
-        "accounts/", include(("oauth.urls", "oauth"), namespace="oauth")
-    ),  # oauth,只展现一个用户登录界面
+    path("accounts/", include(("oauth.urls", "oauth"), namespace="oauth")),  # oauth,只展现一个用户登录界面
     path("", include(("blog.urls", "blog"), namespace="blog")),  # blog
-    path(
-        "comment/", include(("comment.urls", "comment"), namespace="comment")
-    ),  # comment
+    path("comment/", include(("comment.urls", "comment"), namespace="comment")),  # comment
     path("robots.txt", robots, name="robots"),  # robots
     path(
         "sitemap.xml",
@@ -59,11 +54,7 @@ urlpatterns = [
 if settings.API_FLAG:
     from api.urls import router
 
-    urlpatterns.append(
-        path("api/v1/", include((router.urls, router.root_view_name), namespace="api"))
-    )  # restframework
+    urlpatterns.append(path("api/v1/", include((router.urls, router.root_view_name), namespace="api")))  # restframework
 
 if settings.TOOL_FLAG:
-    urlpatterns.append(
-        path("tool/", include(("tool.urls", "tool"), namespace="tool"))
-    )  # tool
+    urlpatterns.append(path("tool/", include(("tool.urls", "tool"), namespace="tool")))  # tool

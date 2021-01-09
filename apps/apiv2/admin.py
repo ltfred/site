@@ -1,7 +1,6 @@
-from django.contrib import admin
-
 # Register your models here.
 from apiv2.models import APIToken
+from django.contrib import admin
 
 
 @admin.register(APIToken)

@@ -1,17 +1,18 @@
 import datetime
 import os
+import re
 
 import hutils
-from django.db import models
+import markdown
 from django.conf import settings
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import reverse
-import markdown
-import re
 
 # 文章关键词，用来作为SEO中keywords
 from izone.settings import DEFAULT_FROM_EMAIL
+
 from .tasks import sync_send_mail
 
 
@@ -83,13 +84,9 @@ class Category(models.Model):
 # 文章
 class Article(models.Model):
     IMG_LINK = "/static/blog/img/summary.png"
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name="作者", on_delete=models.PROTECT
-    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="作者", on_delete=models.PROTECT)
     title = models.CharField(max_length=150, verbose_name="文章标题")
-    summary = models.TextField(
-        "文章摘要", max_length=230, default="文章摘要等同于网页description内容，请务必填写..."
-    )
+    summary = models.TextField("文章摘要", max_length=230, default="文章摘要等同于网页description内容，请务必填写...")
     body = models.TextField(verbose_name="文章内容")
     img_link = models.CharField("图片地址", default=IMG_LINK, max_length=255)
     create_date = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
@@ -98,13 +95,9 @@ class Article(models.Model):
     slug = models.SlugField(unique=True)
     is_top = models.BooleanField("置顶", default=False)
 
-    category = models.ForeignKey(
-        Category, verbose_name="文章分类", on_delete=models.PROTECT
-    )
+    category = models.ForeignKey(Category, verbose_name="文章分类", on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, verbose_name="标签")
-    keywords = models.ManyToManyField(
-        Keyword, verbose_name="文章关键词", help_text="文章关键词，用来作为SEO中keywords，最好使用长尾词，3-4个足够"
-    )
+    keywords = models.ManyToManyField(Keyword, verbose_name="文章关键词", help_text="文章关键词，用来作为SEO中keywords，最好使用长尾词，3-4个足够")
 
     class Meta:
         verbose_name = "文章"
@@ -160,9 +153,7 @@ class Timeline(models.Model):
     side = models.CharField("位置", max_length=1, choices=SIDE_CHOICE, default="L")
     star_num = models.IntegerField("星星个数", choices=STAR_NUM, default=3)
     icon = models.CharField("图标", max_length=50, default="fa fa-pencil")
-    icon_color = models.CharField(
-        "图标颜色", max_length=20, choices=COLOR_CHOICE, default="info"
-    )
+    icon_color = models.CharField("图标颜色", max_length=20, choices=COLOR_CHOICE, default="info")
     title = models.CharField("标题", max_length=100)
     update_date = models.DateTimeField("更新时间")
     content = models.TextField("主要内容")
@@ -187,14 +178,10 @@ class Timeline(models.Model):
 # 幻灯片
 class Carousel(models.Model):
     number = models.IntegerField("编号", help_text="编号决定图片播放的顺序，图片不要多于5张")
-    title = models.CharField(
-        "标题", max_length=20, blank=True, null=True, help_text="标题可以为空"
-    )
+    title = models.CharField("标题", max_length=20, blank=True, null=True, help_text="标题可以为空")
     content = models.CharField("描述", max_length=80)
     img_url = models.CharField("图片地址", max_length=200)
-    url = models.CharField(
-        "跳转链接", max_length=200, default="#", help_text="图片跳转的超链接，默认#表示不跳转"
-    )
+    url = models.CharField("跳转链接", max_length=200, default="#", help_text="图片跳转的超链接，默认#表示不跳转")
 
     class Meta:
         verbose_name = "图片轮播"
@@ -277,15 +264,9 @@ class AboutBlog(models.Model):
 
 
 class SiteConfig(models.Model):
-    logo_name = models.CharField(
-        verbose_name="网站logo名字", max_length=20, null=True, blank=True
-    )
-    site_description = models.CharField(
-        verbose_name="网站描述", max_length=100, null=True, blank=True
-    )
-    site_keywords = models.CharField(
-        verbose_name="网站关键字", max_length=100, null=True, blank=True
-    )
+    logo_name = models.CharField(verbose_name="网站logo名字", max_length=20, null=True, blank=True)
+    site_description = models.CharField(verbose_name="网站描述", max_length=100, null=True, blank=True)
+    site_keywords = models.CharField(verbose_name="网站关键字", max_length=100, null=True, blank=True)
     tool_flag = models.BooleanField(verbose_name="是否开启在线工具", default=True)
     api_flag = models.BooleanField(verbose_name="是否开启api", default=False)
     beian = models.CharField(verbose_name="备案信息", max_length=30, null=True, blank=True)
@@ -313,6 +294,11 @@ def email_notify_handler(sender, instance: FriendLink, created, **kwargs):
         path = os.path.dirname(os.path.abspath(__file__)) + "/templates/blog/email.html"
         with open(path, "r") as f:
             html_message = f.read()
-            html_message = html_message.replace("name", instance.name).replace("address", instance.link, 2).replace(
-                "logo", instance.logo).replace("desc", instance.description).replace("date", hutils.date_to_str(datetime.datetime.now(), fmt="%Y年%m月%d日"))
+            html_message = (
+                html_message.replace("name", instance.name)
+                .replace("address", instance.link, 2)
+                .replace("logo", instance.logo)
+                .replace("desc", instance.description)
+                .replace("date", hutils.date_to_str(datetime.datetime.now(), fmt="%Y年%m月%d日"))
+            )
         sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, email, html_message=html_message)

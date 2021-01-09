@@ -1,11 +1,11 @@
-
 import os
 import sys
 
-# 导入网站个人信息，非通用信息
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import time
+
+# 导入网站个人信息，非通用信息
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -16,9 +16,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv(
-    "IZONE_SECRET_KEY", "#!kta!9e0)24d@9#=*=ra$r!0k0+p5@w+a%7g1bbof9+ad@4_("
-)
+SECRET_KEY = os.getenv("IZONE_SECRET_KEY", "#!kta!9e0)24d@9#=*=ra$r!0k0+p5@w+a%7g1bbof9+ad@4_(")
 
 # 是否开启[在线工具]应用
 TOOL_FLAG = os.getenv("IZONE_TOOL_FLAG", "True").upper() == "TRUE"
@@ -233,9 +231,7 @@ if admin_email_user:
 # 邮箱配置
 EMAIL_HOST = os.getenv("IZONE_EMAIL_HOST", "smtp.163.com")
 EMAIL_HOST_USER = os.getenv("IZONE_EMAIL_HOST_USER", "ltfred@163.com")
-EMAIL_HOST_PASSWORD = os.getenv(
-    "IZONE_EMAIL_HOST_PASSWORD", ""
-)  # 这个不是邮箱密码，而是授权码
+EMAIL_HOST_PASSWORD = os.getenv("IZONE_EMAIL_HOST_PASSWORD", "")  # 这个不是邮箱密码，而是授权码
 EMAIL_PORT = os.getenv("IZONE_EMAIL_PORT", 465)  # 由于阿里云的25端口打不开，所以必须使用SSL然后改用465端口
 EMAIL_TIMEOUT = 5
 # 是否使用了SSL 或者TLS，为了用465端口，要使用这个
@@ -249,9 +245,7 @@ TO_EMAIL = os.getenv("IZONE_TO_EMAIL", "nuyoah08@gmail.com")
 SITE_LOGO_NAME = os.getenv("IZONE_LOGO_NAME", "Petrichor")
 SITE_END_TITLE = os.getenv("IZONE_SITE_END_TITLE", "Petrichor")
 SITE_DESCRIPTION = os.getenv("IZONE_SITE_DESCRIPTION", "Petrichor 博客，基于Django搭建的个人博客")
-SITE_KEYWORDS = os.getenv(
-    "IZONE_SITE_KEYWORDS", "Python自学,Python爬虫,Django博客,Python web开发,个人博客，Petrichor"
-)
+SITE_KEYWORDS = os.getenv("IZONE_SITE_KEYWORDS", "Python自学,Python爬虫,Django博客,Python web开发,个人博客，Petrichor")
 
 # 个性化设置，非必要信息
 # 个人 Github 地址
@@ -275,5 +269,5 @@ HAO_CONSOLE = {
 JI_SU_APP_KEY = os.getenv("JI_SU_APP_KEY", "cdce972822590784")
 
 
-CELERY_TIME_ZONE = 'Asia/Shanghai'
+CELERY_TIME_ZONE = "Asia/Shanghai"
 CELERY_ENABLE_UTC = True

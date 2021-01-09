@@ -1,5 +1,4 @@
 from django.views import generic
-
 from photo.models import Photo, PhotoCategory
 from utils.common import PhotoLoginRequiredMixin
 

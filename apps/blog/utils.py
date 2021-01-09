@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from django.apps import apps as django_apps
-from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 
 def site_protocol():
@@ -20,9 +20,7 @@ def site_domain():
     :return: 当前站点域名
     """
     if not django_apps.is_installed("django.contrib.sites"):
-        raise ImproperlyConfigured(
-            "get site_domain requires django.contrib.sites, which isn't installed."
-        )
+        raise ImproperlyConfigured("get site_domain requires django.contrib.sites, which isn't installed.")
 
     site = django_apps.get_model("sites.Site")
     current_site = site.objects.get_current()

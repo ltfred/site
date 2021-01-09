@@ -1,7 +1,7 @@
-import hutils
-import xlrd
 import os
 
+import hutils
+import xlrd
 from utils.common import split_date_duration
 
 
@@ -19,13 +19,15 @@ class Holiday(object):
         for i in range(sheet.nrows):
             row_data = sheet.row_values(i)
             start_date, end_date = split_date_duration(row_data[1], year)
-            holiday_data.append({
-                "name": row_data[0],
-                "date": start_date,
-                "duration": row_data[1],
-                "rest": row_data[2],
-                "days": row_data[3]
-            })
+            holiday_data.append(
+                {
+                    "name": row_data[0],
+                    "date": start_date,
+                    "duration": row_data[1],
+                    "rest": row_data[2],
+                    "days": row_data[3],
+                }
+            )
         return {"year": year, "message": holiday_data}, 0
 
     def get_today(self, date_str: str) -> (dict, int):

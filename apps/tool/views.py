@@ -1,25 +1,22 @@
 import base64
 import datetime
+import re
 
 import hutils
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.utils.html import mark_safe
+import markdown
 from django.core.cache import cache
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.utils.html import mark_safe
+from utils.common import generate_response, hex_to_rgb, rgb_to_hex
+from utils.online_tool import IMAGE_LIST
 
-from utils.common import hex_to_rgb, rgb_to_hex, generate_response
-from .apis.bd_push import push_urls, get_urls
+from .apis.bd_push import get_urls, push_urls
+from .apis.docker_search import DockerSearch
 from .apis.holiday import Holiday
 from .apis.jisu import JiSu
 from .apis.useragent import get_user_agent
-from .apis.docker_search import DockerSearch
 from .templatetags.tool_tags import get_toollist_by_key
-
-
-import re
-import markdown
-
-from utils.online_tool import IMAGE_LIST
 
 
 def tool_view(request):
@@ -210,7 +207,7 @@ def color_view(request):
                 f"<div>RGB：({rgb_color})</div>",
                 "ok",
                 0,
-                extra=f'色块：<div style="background-color: {color}; width: 50px; height: 30px; display: inline-block;"></div>'
+                extra=f'色块：<div style="background-color: {color}; width: 50px; height: 30px; display: inline-block;"></div>',
             )
         try:
             hex_color = rgb_to_hex(color)
@@ -220,7 +217,7 @@ def color_view(request):
             f"<div>16进制：{hex_color}</div>",
             "ok",
             0,
-            extra=f'色块：<div style="background-color: {hex_color}; width: 50px; height: 30px; display: inline-block;"></div>'
+            extra=f'色块：<div style="background-color: {hex_color}; width: 50px; height: 30px; display: inline-block;"></div>',
         )
     return render(request, "tool/rgb.html")
 

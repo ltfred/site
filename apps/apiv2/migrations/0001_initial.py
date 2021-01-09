@@ -7,24 +7,23 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='APIToken',
+            name="APIToken",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token', models.CharField(help_text='访问token', max_length=12, unique=True)),
-                ('max_count', models.IntegerField(default=0, help_text='限制访问次数')),
-                ('visit_count', models.IntegerField(default=0, help_text='每日访问次数')),
-                ('create_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
-                ('update_at', models.DateTimeField(auto_now=True, verbose_name='修改时间')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("token", models.CharField(help_text="访问token", max_length=12, unique=True)),
+                ("max_count", models.IntegerField(default=0, help_text="限制访问次数")),
+                ("visit_count", models.IntegerField(default=0, help_text="每日访问次数")),
+                ("create_at", models.DateTimeField(auto_now_add=True, verbose_name="创建时间")),
+                ("update_at", models.DateTimeField(auto_now=True, verbose_name="修改时间")),
             ],
             options={
-                'verbose_name': '密钥',
-                'verbose_name_plural': '密钥',
-                'ordering': ['-create_at'],
+                "verbose_name": "密钥",
+                "verbose_name_plural": "密钥",
+                "ordering": ["-create_at"],
             },
         ),
     ]

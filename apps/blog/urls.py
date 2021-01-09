@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
+
 from .views import (
-    IndexView,
-    DetailView,
-    CategoryView,
-    TagView,
-    about_view,
-    SilianView,
-    MySearchView,
     ArchiveView,
-    TimelineView, LinkView,
+    CategoryView,
+    DetailView,
+    IndexView,
+    LinkView,
+    MySearchView,
+    SilianView,
+    TagView,
+    TimelineView,
+    about_view,
 )
 
 urlpatterns = [
@@ -28,9 +30,7 @@ urlpatterns = [
     path("about/", about_view, name="about"),  # About页面
     path("timeline/", TimelineView.as_view(), name="timeline"),  # timeline页面
     path("archive/", ArchiveView.as_view(), name="archive"),  # 归档页面
-    path(
-        "silian.xml", SilianView.as_view(content_type="application/xml"), name="silian"
-    ),  # 死链页面
+    path("silian.xml", SilianView.as_view(content_type="application/xml"), name="silian"),  # 死链页面
     path("search/", MySearchView.as_view(), name="search_view"),  # 全文搜索
-    path("link/", LinkView.as_view(), name="link")
+    path("link/", LinkView.as_view(), name="link"),
 ]

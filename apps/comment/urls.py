@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
-from .views import add_comment_view, notification_view, mark_to_read, mark_to_delete
+
+from .views import add_comment_view, mark_to_delete, mark_to_read, notification_view
 
 urlpatterns = [
     path("add/", add_comment_view, name="add_comment"),

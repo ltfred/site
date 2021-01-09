@@ -1,10 +1,7 @@
-from django.urls import re_path, path
-
-from apiv2.views import next_holiday, holiday, date_info, today_history
+from apiv2.views import date_info, holiday, next_holiday, today_history
+from django.urls import path, re_path
 from photo.views import PhotoView
 
 app_name = "photo"
 
-urlpatterns = [
-    path("", PhotoView.as_view(), name="list")
-]
+urlpatterns = [path("", PhotoView.as_view(), name="list")]

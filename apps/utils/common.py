@@ -1,11 +1,10 @@
 import datetime
 
 import hutils
+from apiv2.models import APIToken
 from django.contrib.auth.mixins import AccessMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect
-
-from apiv2.models import APIToken
 
 
 def split_date_duration(duration: str, year: str) -> (datetime.date, datetime.date):
@@ -39,7 +38,7 @@ def generate_response_data(start_date, date, holiday):
             "rest": holiday["rest"],
             "days": holiday["days"],
             "message": f"下一个节假日是{holiday['name']}, 还有{(start_date - date).days}天",
-        }
+        },
     }
 
 
@@ -54,8 +53,9 @@ def token_verify(func):
         if token.max_count < token.visit_count and token.max_count != 0:
             return JsonResponse({"status": -1, "data": {"message": "当日没有访问次数了"}})
         token.visit_count += 1
-        token.save(update_fields=['visit_count', "update_at"])
+        token.save(update_fields=["visit_count", "update_at"])
         return func(request)
+
     return wrapper
 
 
@@ -65,13 +65,13 @@ def rgb_to_hex(rgb):
     @param rgb: RGB格式
     @return: 16进制
     """
-    rgb = rgb.split(',')
-    color = '#'
+    rgb = rgb.split(",")
+    color = "#"
     for i in rgb:
         num = int(i)
         if not 0 <= num <= 255:
             raise
-        color += str(hex(num))[-2:].replace('x', '0').upper()
+        color += str(hex(num))[-2:].replace("x", "0").upper()
     return color
 
 
@@ -84,7 +84,7 @@ def hex_to_rgb(hex):
     r = int(hex[1:3], 16)
     g = int(hex[3:5], 16)
     b = int(hex[5:7], 16)
-    rgb = str(r)+','+str(g)+','+str(b)
+    rgb = str(r) + "," + str(g) + "," + str(b)
     return rgb
 
 
@@ -101,6 +101,7 @@ def generate_response(result, msg, code, extra=None):
 
 class PhotoLoginRequiredMixin(AccessMixin):
     """管理员才能访问相册"""
+
     def dispatch(self, request, *args, **kwargs):
         user = request.user
         if not user.is_staff:

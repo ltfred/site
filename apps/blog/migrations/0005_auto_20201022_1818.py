@@ -6,18 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0004_siteconfig'),
+        ("blog", "0004_siteconfig"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='description',
-            field=models.TextField(default='Petrichor 博客，基于Django搭建的个人博客', help_text='用来作为SEO中description,长度参考SEO标准', max_length=240, verbose_name='描述'),
+            model_name="category",
+            name="description",
+            field=models.TextField(
+                default="Petrichor 博客，基于Django搭建的个人博客",
+                help_text="用来作为SEO中description,长度参考SEO标准",
+                max_length=240,
+                verbose_name="描述",
+            ),
         ),
         migrations.AlterField(
-            model_name='tag',
-            name='description',
-            field=models.TextField(default='Petrichor 博客，基于Django搭建的个人博客', help_text='用来作为SEO中description,长度参考SEO标准', max_length=240, verbose_name='描述'),
+            model_name="tag",
+            name="description",
+            field=models.TextField(
+                default="Petrichor 博客，基于Django搭建的个人博客",
+                help_text="用来作为SEO中description,长度参考SEO标准",
+                max_length=240,
+                verbose_name="描述",
+            ),
         ),
     ]

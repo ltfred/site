@@ -1,10 +1,12 @@
 # 创建了新的tags标签文件后必须重启服务器
 
+import re
+
 from django import template
-from ..models import Article, Category, Tag, Carousel, FriendLink
 from django.db.models.aggregates import Count
 from django.utils.html import mark_safe
-import re
+
+from ..models import Article, Carousel, Category, FriendLink, Tag
 
 register = template.Library()
 

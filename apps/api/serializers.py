@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+from blog.models import Article, Category, Tag, Timeline
 from oauth.models import Ouser
 from rest_framework import serializers
-from blog.models import Article, Tag, Category, Timeline
-from tool.models import ToolLink, ToolCategory
+from tool.models import ToolCategory, ToolLink
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,9 +32,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True,
     )
-    keywords = serializers.SlugRelatedField(
-        many=True, read_only=True, slug_field="name"
-    )
+    keywords = serializers.SlugRelatedField(many=True, read_only=True, slug_field="name")
 
     class Meta:
         model = Article

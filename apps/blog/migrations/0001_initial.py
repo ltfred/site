@@ -73,9 +73,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "number",
-                    models.IntegerField(
-                        help_text="编号决定图片播放的顺序，图片不要多于5张", verbose_name="编号"
-                    ),
+                    models.IntegerField(help_text="编号决定图片播放的顺序，图片不要多于5张", verbose_name="编号"),
                 ),
                 (
                     "title",
@@ -154,9 +152,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "link",
-                    models.URLField(
-                        help_text="请填写http或https开头的完整形式地址", verbose_name="友链地址"
-                    ),
+                    models.URLField(help_text="请填写http或https开头的完整形式地址", verbose_name="友链地址"),
                 ),
                 (
                     "logo",
@@ -221,9 +217,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "remark",
-                    models.CharField(
-                        blank=True, max_length=50, null=True, verbose_name="死链说明"
-                    ),
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name="死链说明"),
                 ),
                 (
                     "add_date",
@@ -303,9 +297,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "icon",
-                    models.CharField(
-                        default="fa fa-pencil", max_length=50, verbose_name="图标"
-                    ),
+                    models.CharField(default="fa fa-pencil", max_length=50, verbose_name="图标"),
                 ),
                 (
                     "icon_color",

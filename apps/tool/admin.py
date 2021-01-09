@@ -1,7 +1,7 @@
-from django.contrib import admin
-from .models import ToolCategory, ToolLink
 from django.conf import settings
+from django.contrib import admin
 
+from .models import ToolCategory, ToolLink
 
 # Register your models here.
 if settings.TOOL_FLAG:

@@ -3,6 +3,7 @@ from django.db import models
 
 class Photo(models.Model):
     """照片"""
+
     name = models.CharField(max_length=50, verbose_name="名称")
     description = models.CharField(max_length=100, verbose_name="描述")
     url = models.URLField(verbose_name="照片地址")
@@ -21,6 +22,7 @@ class Photo(models.Model):
 
 class PhotoCategory(models.Model):
     """照片分类"""
+
     name = models.CharField(max_length=50, verbose_name="名称")
     description = models.CharField(max_length=100, verbose_name="相册描述")
     created_at = models.DateTimeField(auto_now_add=True)

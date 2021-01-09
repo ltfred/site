@@ -5,9 +5,14 @@ from rest_framework import viewsets
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from tool.models import ToolLink
 
-from .serializers import (ArticleSerializer, CategorySerializer, TagSerializer,
-                          TimelineSerializer, ToolLinkSerializer,
-                          UserSerializer)
+from .serializers import (
+    ArticleSerializer,
+    CategorySerializer,
+    TagSerializer,
+    TimelineSerializer,
+    ToolLinkSerializer,
+    UserSerializer,
+)
 
 
 # RESEful API VIEWS

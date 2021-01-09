@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
-from .views import profile_view, change_profile_view
 
+from .views import change_profile_view, profile_view
 
 urlpatterns = [
     path("profile/", profile_view, name="profile"),

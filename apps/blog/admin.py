@@ -1,18 +1,7 @@
 from django.contrib import admin
-
 from oauth.models import Ouser
-from .models import (
-    Article,
-    Tag,
-    Category,
-    Timeline,
-    Carousel,
-    Silian,
-    Keyword,
-    FriendLink,
-    AboutBlog,
-    SiteConfig,
-)
+
+from .models import AboutBlog, Article, Carousel, Category, FriendLink, Keyword, Silian, SiteConfig, Tag, Timeline
 
 
 @admin.register(Article)
@@ -44,8 +33,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """选择文章作者时只显示superuser"""
-        if db_field.name == 'author':
-            kwargs['queryset'] = Ouser.objects.filter(is_staff=True)
+        if db_field.name == "author":
+            kwargs["queryset"] = Ouser.objects.filter(is_staff=True)
         return super(ArticleAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
 

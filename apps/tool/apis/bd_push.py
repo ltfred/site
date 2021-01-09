@@ -1,5 +1,6 @@
-import requests
 import re
+
+import requests
 
 
 def push_urls(url, urls):

@@ -1,9 +1,9 @@
-from django.db import models
-from django.conf import settings
-from blog.models import Article
 import re
 
 import markdown
+from blog.models import Article
+from django.conf import settings
+from django.db import models
 
 emoji_info = [
     [

@@ -2,14 +2,8 @@
 # @Date  : 2019/2/1
 
 from rest_framework.routers import DefaultRouter
-from .views import (
-    UserListSet,
-    ArticleListSet,
-    TagListSet,
-    CategoryListSet,
-    TimelineListSet,
-    ToolLinkListSet,
-)
+
+from .views import ArticleListSet, CategoryListSet, TagListSet, TimelineListSet, ToolLinkListSet, UserListSet
 
 router = DefaultRouter()
 router.register(r"users", UserListSet)

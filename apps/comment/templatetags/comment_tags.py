@@ -1,6 +1,7 @@
 # 创建了新的tags标签文件后必须重启服务器
 
 from django import template
+
 from ..models import emoji_info
 
 register = template.Library()

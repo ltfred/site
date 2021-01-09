@@ -1,24 +1,23 @@
 import datetime
+import time
 
 import hutils
+import markdown
+from django.conf import settings
+from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
-from django.views import generic, View
-from django.conf import settings
-
-from izone.settings import DEFAULT_FROM_EMAIL, TO_EMAIL
-from .models import Article, Tag, Category, Timeline, Silian, AboutBlog, FriendLink
-from .tasks import sync_send_mail
-from .utils import site_full_url
-from django.core.cache import cache
-
-from markdown.extensions.toc import TocExtension  # 锚点的拓展
-import markdown
-import time
-
+from django.views import View, generic
 from haystack.generic_views import SearchView  # 导入搜索视图
 from haystack.query import SearchQuerySet
+from markdown.extensions.toc import TocExtension  # 锚点的拓展
+
+from izone.settings import DEFAULT_FROM_EMAIL, TO_EMAIL
+
+from .models import AboutBlog, Article, Category, Silian, Tag, Timeline
+from .tasks import sync_send_mail
+from .utils import site_full_url
 
 
 class ArchiveView(generic.ListView):
@@ -183,13 +182,10 @@ class MySearchView(SearchView):
 
 def robots(request):
     site_url = site_full_url()
-    return render(
-        request, "robots.txt", context={"site_url": site_url}, content_type="text/plain"
-    )
+    return render(request, "robots.txt", context={"site_url": site_url}, content_type="text/plain")
 
 
 class LinkView(View):
-
     def get(self, request):
         return render(request, "blog/link.html")
 
@@ -198,7 +194,6 @@ class LinkView(View):
         subject = message = "友链申请"
         html_message = f"网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
         sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, TO_EMAIL, html_message=html_message)
-        return JsonResponse({
-                "message": f"申请成功<br>网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
-            }
+        return JsonResponse(
+            {"message": f"申请成功<br>网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"}
         )

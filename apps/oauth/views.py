@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+import os
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 
 from .forms import ProfileForm
-from django.contrib import messages
-import os
 
 
 @login_required

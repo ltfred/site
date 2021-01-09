@@ -3,9 +3,9 @@ from django import template
 from django.db.models.aggregates import Count
 from django.templatetags.static import static
 from django.urls import reverse
+from utils.online_tool import IZONE_TOOLS
 
 from ..models import ToolCategory
-from utils.online_tool import IZONE_TOOLS
 
 register = template.Library()
 
@@ -13,9 +13,7 @@ register = template.Library()
 @register.simple_tag
 def get_toolcates():
     """获取所有工具分类，只显示有工具的分类"""
-    return ToolCategory.objects.annotate(total_num=Count("toollink")).filter(
-        total_num__gt=0
-    )
+    return ToolCategory.objects.annotate(total_num=Count("toollink")).filter(total_num__gt=0)
 
 
 @register.simple_tag

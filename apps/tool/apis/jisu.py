@@ -1,7 +1,7 @@
 import datetime
-import requests
-
 import os
+
+import requests
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "izone.settings")
 
@@ -34,11 +34,7 @@ class JiSu(object):
             for each_data in data:
                 history_data.append(
                     {
-                        "date": each_data["year"]
-                        + "-"
-                        + each_data["month"]
-                        + "-"
-                        + each_data["day"],
+                        "date": each_data["year"] + "-" + each_data["month"] + "-" + each_data["day"],
                         "title": each_data["title"],
                     }
                 )

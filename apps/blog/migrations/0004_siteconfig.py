@@ -24,21 +24,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "logo_name",
-                    models.CharField(
-                        blank=True, max_length=20, null=True, verbose_name="网站logo名字"
-                    ),
+                    models.CharField(blank=True, max_length=20, null=True, verbose_name="网站logo名字"),
                 ),
                 (
                     "site_description",
-                    models.CharField(
-                        blank=True, max_length=100, null=True, verbose_name="网站描述"
-                    ),
+                    models.CharField(blank=True, max_length=100, null=True, verbose_name="网站描述"),
                 ),
                 (
                     "site_keywords",
-                    models.CharField(
-                        blank=True, max_length=100, null=True, verbose_name="网站关键字"
-                    ),
+                    models.CharField(blank=True, max_length=100, null=True, verbose_name="网站关键字"),
                 ),
                 (
                     "tool_flag",
@@ -50,9 +44,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "beian",
-                    models.CharField(
-                        blank=True, max_length=30, null=True, verbose_name="备案信息"
-                    ),
+                    models.CharField(blank=True, max_length=30, null=True, verbose_name="备案信息"),
                 ),
                 (
                     "github",

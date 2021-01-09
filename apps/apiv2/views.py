@@ -4,7 +4,7 @@ import hutils
 from django.http import JsonResponse
 from tool.apis.holiday import Holiday
 from tool.apis.jisu import JiSu
-from utils.common import split_date_duration, generate_response_data, token_verify
+from utils.common import generate_response_data, split_date_duration, token_verify
 
 
 @token_verify
@@ -63,9 +63,7 @@ def next_holiday(request):
             response_data = generate_response_data(next_start_date, date, next_year_holiday_list[0])
             return JsonResponse(response_data)
         next_holiday_info = holiday_list[holiday_index + 1]
-        next_start_date, next_end_date = split_date_duration(
-            next_holiday_info["duration"], str(date.today().year)
-        )
+        next_start_date, next_end_date = split_date_duration(next_holiday_info["duration"], str(date.today().year))
         if (start_date <= date <= end_date) or (end_date < date < next_start_date):
             response_data = generate_response_data(next_start_date, date, next_holiday_info)
             return JsonResponse(response_data)

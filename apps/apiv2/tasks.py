@@ -1,8 +1,7 @@
 import datetime
 
-from celery import shared_task
-
 from apiv2.models import APIToken
+from celery import shared_task
 
 
 @shared_task

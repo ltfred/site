@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from photo.models import Photo, PhotoCategory
 
 

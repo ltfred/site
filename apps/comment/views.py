@@ -1,12 +1,13 @@
-from django.shortcuts import render
-from blog.models import Article
-from .models import ArticleComment, Notification
-from django.conf import settings
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from django.shortcuts import get_object_or_404
+
+from blog.models import Article
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.http import require_POST
+
+from .models import ArticleComment, Notification
 
 user_model = settings.AUTH_USER_MODEL
 
