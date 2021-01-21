@@ -368,6 +368,7 @@ function link_api(CSRF, URL) {
 	var name = $.trim($('#form-name').val());
 	var address = $.trim($('#form-address').val());
 	var desc = $.trim($('#form-desc').val());
+	var logo = $.trim($('#form-logo').val());
 	var email = $.trim($('#form-email').val());
 	if (name.length === 0) {
 		alert('输入的网站名称不能为空！');
@@ -394,6 +395,7 @@ function link_api(CSRF, URL) {
 			'name': name,
 			'address': address,
 			'desc': desc,
+			'logo': (logo || ""),
 			'email': (email || ""),
 		},
 		dataType: 'json',

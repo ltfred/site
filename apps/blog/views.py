@@ -190,10 +190,10 @@ class LinkView(View):
         return render(request, "blog/link.html")
 
     def post(self, request):
-        name, address, desc, email = hutils.get_data(request.POST, "name", "address", "desc", "email", optional=True)
-        subject = message = "友链申请"
-        html_message = f"网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"
-        sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, TO_EMAIL, html_message=html_message)
-        return JsonResponse(
-            {"message": f"申请成功<br>网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>邮箱：{email if email else '无'}"}
+        name, address, desc, logo, email = hutils.get_data(
+            request.POST, "name", "address", "desc", "logo", "email", optional=True
         )
+        subject = message = "友链申请"
+        html_message = f"网站名称：{name}<br>网站地址：{address}<br>网站简介：{desc}<br>网站图标：{logo if logo else '无'}<br>邮箱：{email if email else '无'}"
+        sync_send_mail.delay(subject, message, DEFAULT_FROM_EMAIL, TO_EMAIL, html_message=html_message)
+        return JsonResponse({"message": f"申请成功<br>{html_message}"})
