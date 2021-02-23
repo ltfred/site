@@ -263,28 +263,6 @@ class AboutBlog(models.Model):
         )
 
 
-class SiteConfig(models.Model):
-    logo_name = models.CharField(verbose_name="网站logo名字", max_length=20, null=True, blank=True)
-    site_description = models.CharField(verbose_name="网站描述", max_length=100, null=True, blank=True)
-    site_keywords = models.CharField(verbose_name="网站关键字", max_length=100, null=True, blank=True)
-    tool_flag = models.BooleanField(verbose_name="是否开启在线工具", default=True)
-    api_flag = models.BooleanField(verbose_name="是否开启api", default=False)
-    beian = models.CharField(verbose_name="备案信息", max_length=30, null=True, blank=True)
-    github = models.URLField(verbose_name="github", null=True, blank=True)
-    hao_console = models.CharField(
-        max_length=100,
-        verbose_name="导航",
-        help_text='{"flag": true or false, "name": "名字"，"url": "https://"}',
-        default="{}",
-    )
-    deactivated_at = models.DateTimeField(verbose_name="失效时间", null=True, blank=True)
-    created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "网站配置"
-        verbose_name_plural = verbose_name
-
-
 @receiver(post_save, sender=FriendLink)
 def email_notify_handler(sender, instance: FriendLink, created, **kwargs):
     """添加友链后发送邮件通知"""

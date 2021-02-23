@@ -1,7 +1,7 @@
 from django.contrib import admin
 from oauth.models import Ouser
 
-from .models import AboutBlog, Article, Carousel, Category, FriendLink, Keyword, Silian, SiteConfig, Tag, Timeline
+from .models import AboutBlog, Article, Carousel, Category, FriendLink, Keyword, Silian, Tag, Timeline
 
 
 @admin.register(Article)
@@ -116,7 +116,3 @@ class AboutBlogAdmin(admin.ModelAdmin):
             return qs
         return None
 
-
-@admin.register(SiteConfig)
-class SiteConfigAdmin(admin.ModelAdmin):
-    list_display = ("logo_name",)
