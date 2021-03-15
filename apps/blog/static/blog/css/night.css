@@ -184,3 +184,16 @@ pre {
 
 }
 
+.article-body table th {
+    background-color: #001d25;
+    text-align: center;
+	color: #96a7bf;
+}
+
+.CodeMirror-wrap pre {
+	color: #fff;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+	background-color: #18222d;
+}

@@ -44,8 +44,8 @@
     border: 1px solid #95a5a6;
 }
 .article-body table th {
-    background-color:#212529;
-    color:#fff;
+    background-color:#e2e2f0;
+    text-align: center;
 }
 .article-body a {
     color: #ea6f5a;
